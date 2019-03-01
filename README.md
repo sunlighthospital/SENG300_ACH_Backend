@@ -14,9 +14,9 @@ Back-end server + database implementation for SENG 300 Project
 
 -- Running the Service --
 1. In Eclipse, right click on the project and 'Run As > Run on Server' (Select the server you just created above)
-2. To test various functions, place code into TestScript.Java's test() function. Other may be implimented later.
+2. To test various functions, place code into TestScript.Java's test() function. Others may be implimented later.
 3. To see the results of the test, start the server and go to 'http://localhost:8080/com.ach_manager.rest/api/test'
 
 -- To Request Write Access for Repo --
-1. Make sure yu have a valid SSH public key
+1. Make sure you have a valid SSH public key
 2. Send it to me (Kalum Ost) over Slack, or meet me in person to quickly add it to the allowed user keys
