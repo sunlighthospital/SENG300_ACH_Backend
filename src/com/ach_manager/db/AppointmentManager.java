@@ -2,39 +2,62 @@ package com.ach_manager.db;
 import java.sql.*;
 
 public class AppointmentManager {
-	// Current database information
-	private static final String db_url = "jdbc:mysql://localhost/SENG300_Hospital";
-	 
-    private static final String db_user = "client";
- 
-    private static final String db_password = "password";
-	
-	// Establish connection to the intended database
-	private static Connection establishConnection(String url, String user, String pass) throws SQLException{
-		Connection con = null;
-		
-		// Attempt Connection
-		System.out.println("Attempting connection...");
-		try {
-			con = DriverManager.getConnection(url, user, pass);
-			System.out.println("Connected Successfully!");
-		}
-		catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
-		}
-		
-		return con;
-	}
-	
-	// Find all appointments associated with a given doctor's name
-	public static String getDocAppointmentsByName(String name) throws SQLException {
+	// Gets all appointments associated with a doctor, given their id number
+	// Returns:
+	//	A string of newline delineated values representing appoints
+	//	Each value is separated by a tab character '\t'
+	//	String data in the following order
+	//		title -> description -> date time -> duration
+	//	Null on Failure
+	public static String getDocAppointmentsByDocID(int id) throws SQLException {
 		// Initialize Connection
-		Connection con = establishConnection(db_url, db_user, db_password);
+		Connection con = ConnectionManager.getConnection();
 		// Holds results from query
 		Statement stmt = null;
 		// String representation of the schedule
-		String schedule = null;
+		String schedule = "";
+		// Holds results from query
+		ResultSet rs = null;
+		// Query assembly (mySQL format)
+		String query = "SELECT * FROM appointment WHERE doctor_id = \'" + id + "\';";
+		try {
+			// Attempt to query
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+			// While appointments remain, add their data to the string
+			while (rs.next()) {
+				String title = rs.getString("title");
+				String desc = rs.getString("desc");
+				Timestamp timestamp = rs.getTimestamp("time");
+				String datetime = timestamp.toString();
+				int duration = rs.getInt("duration");
+				System.out.println(title + "\t" + desc + "\t" + datetime + "\t" + duration );
+				schedule = schedule + title + "\t" + desc + "\t" + datetime + "\t" + duration + "\n";
+			}
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 		
+		return schedule;
+	}
+	
+	// Find all appointments associated with a given doctor's name
+	// Returns:
+	//	A string of newline delineated values representing appoints
+	//	Each value is separated by a tab character '\t'
+	//	String data in the following order
+	//		title -> description -> date time -> duration
+	// 	Null on Failure
+	public static String getDocAppointmentsByName(String name) throws SQLException {
+		// Initialize Connection
+		Connection con = ConnectionManager.getConnection();
+		// Statement of Intent
+		Statement stmt = null;
+		// String representation of the schedule
+		String schedule = "";
+		// Query to submit to the database
 		String query = "SELECT `id` FROM doctor WHERE name = \'" + name + "\';";
 		try {
 			// ID identifier
@@ -43,20 +66,8 @@ public class AppointmentManager {
 			rs.next();
 			int doc_id = rs.getInt("id");
 			
-			// Appointment Fetching + Formatting
-			query = "SELECT `title`,`desc`,`time`,`duration` FROM appointment WHERE doctor_id = \'" + doc_id + "\';";
-			rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				String title = rs.getString("title");
-				String desc = rs.getString("desc");
-				Timestamp timestamp = rs.getTimestamp("time");
-				String datetime = timestamp.toString();
-				int duration = rs.getInt("duration");
-				System.out.println(title + "\t" + desc + "\t" + datetime + "\t" + duration );
-				schedule = schedule + "\n" + title + "\t" + desc + "\t" + datetime + "\t" + duration;
-			}
+			schedule = getDocAppointmentsByDocID(doc_id);
 			stmt.close();
-			
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
