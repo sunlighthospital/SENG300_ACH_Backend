@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 public class TestScript {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String testDBQueries() throws SQLException {
-		String tsv = "";
-		tsv += AppointmentManager.getDocAppointmentsByDocID(1);
-		tsv += "----------------------------------------------\n";
-		tsv += DoctorManager.getAllDoctorsInDepByID(2);
-		return tsv;
+	public String test() throws SQLException {
+		String test_string = "";
+		test_string += AppointmentManager.getDocAppointmentsByDocID(1);
+		test_string += "----------------------------------------------\n";
+		test_string += DoctorManager.getAllDoctorsInDepByID(2);
+		return test_string;
 	}
 }
