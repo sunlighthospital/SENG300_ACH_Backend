@@ -11,7 +11,7 @@ public class AppointmentManager {
 	//	Each value contains the following:
 	//		String "title"
 	//		String "description"
-	//		String "time" (yyy-MM-dd)
+	//		String "time" (yyyy-MM-dd)
 	//		Int "duration" (in minutes)
 	//  Note: Duration of 0 indicates a full day event, null indicates error
 	public static JSONObject getDocAppointmentsByDocID(int id) throws SQLException {
@@ -57,7 +57,7 @@ public class AppointmentManager {
 	//	Each value contains the following:
 	//		String "title"
 	//		String "description"
-	//		Timestamp "time"
+	//		String "time"
 	//		Int "duration" (in minutes)
 	//  Note: Duration of 0 indicates a full day event, null indicates error
 	public static JSONObject getDocAppointmentsByName(String name) throws SQLException {
