@@ -12,21 +12,12 @@ public class TestScript {
 		String test_string = "";
 		try {
 			test_string += AppointmentManager.getDocAppointmentsByDocID(1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		test_string += "----------------------------------------------\n";
-		try {
+			test_string += "----------------------------------------------\n";
 			test_string += DoctorManager.getAllDoctorsInDepByID(2);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			test_string = "ERROR: Something went wrong. Fuck if we know"; 
 			e.printStackTrace();
 		}
 		return test_string;
-	}
-	
-	public static void main(String args[]) {
-		System.out.println("Fuck this");
 	}
 }
