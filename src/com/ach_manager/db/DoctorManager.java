@@ -1,22 +1,22 @@
 package com.ach_manager.db;
 
 import java.sql.*;
+import org.json.*;
 
 public class DoctorManager {	
 	// Gets all doctors in the system
-		// Returns:
-		//	A string of newline delineated values representing doctors in the DB
-		//	Each value is separated by a tab character '\t'
-		//	String data in the following order
-		//		id -> name -> is_surgeon
-		//	Null on Failure
-	public static String getAllDoctors() throws SQLException {
+	// Returns:
+	//	JSON containing a list of all doctors registered in the system
+	//	Contains "id", "name", "is_surgeon", and "department"
+	//  Note: null indicates error
+	public static JSONObject getAllDoctors() throws SQLException {
 		// Initialize Connection
 		Connection con = ConnectionManager.getConnection();
 		// Holds results from query
 		Statement stmt = null;
 		// String representation of the schedule
-		String data = "";
+		JSONObject data = new JSONObject();
+		JSONArray data_array = new JSONArray();
 		// Holds results from query
 		ResultSet rs = null;
 		// Query assembly (mySQL format)
@@ -27,40 +27,39 @@ public class DoctorManager {
 			// Attempt the query
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
-			// While appointments remain, add their data to the string
+			// While doctors remain, add them to the object
 			while (rs.next()) {
-				// Pull data from each result
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				boolean is_surgeon = rs.getBoolean("is_surgeon");
-				String dep_name = rs.getString("dep_name");
-				// Add it to the string
-				System.out.println(id + "\t" + name + "\t" + is_surgeon + "\t" + dep_name);
-				data = data + id + "\t" + name + "\t" + is_surgeon + "\t" + dep_name + "\n";
+				JSONObject jo = new JSONObject();
+				jo.put("id", rs.getInt("id"));
+				jo.put("name", rs.getString("name"));
+				jo.put("is_surgeon", rs.getBoolean("is_surgeon"));
+				jo.put("department", rs.getString("dep_name"));
+				data_array.put(jo);
 			}
+			// Place all of the data into the JSON object
+			data.put("schedule", data_array);
 			stmt.close();
 			
 		} catch (SQLException e) {
+			data = null;
 			System.out.println(e);
 		}
-		
 		return data;
 	}
 
-	// Gets all doctors in the system
+	// Gets all doctors in the system in a given department by the latter's id number
 	// Returns:
-	//	A string of newline delineated values representing doctors in the given department
-	//	Each value is separated by a tab character '\t'
-	//	String data in the following order
-	//		id -> name -> is_surgeon -> department name
-	//	Null on Failure
-	public static String getAllDoctorsInDepByID(int dep_id) throws SQLException {
+	//	JSON containing a list of all doctors registered in the system in the department
+	//	Contains "id", "name", "is_surgeon", and "department"
+	//  Note: null indicates error
+	public static JSONObject getAllDoctorsInDepByID(int dep_id) throws SQLException {
 		// Initialize Connection
 		Connection con = ConnectionManager.getConnection();
 		// Holds results from query
 		Statement stmt = null;
 		// String representation of the schedule
-		String data = "";
+		JSONObject data = new JSONObject();
+		JSONArray data_array = new JSONArray();
 		// Holds results from query
 		ResultSet rs = null;
 		// Query assembly (mySQL format)
@@ -72,16 +71,16 @@ public class DoctorManager {
 			// Attempt the query
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
-			// While appointments remain, add their data to the string
 			while (rs.next()) {
-				// Pull data from each result
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				boolean is_surgeon = rs.getBoolean("is_surgeon");
-				// Add it to the string
-				System.out.println(id + "\t" + name + "\t" + is_surgeon + "\n");
-				data = data + id + "\t" + name + "\t" + is_surgeon + "\n";
+				JSONObject jo = new JSONObject();
+				jo.put("id", rs.getInt("id"));
+				jo.put("name", rs.getString("name"));
+				jo.put("is_surgeon", rs.getBoolean("is_surgeon"));
+				//jo.put("department", rs.getString("dep_name"));
+				data_array.put(jo);
 			}
+			// Place all of the data into the JSON object
+			data.put("schedule", data_array);
 			stmt.close();
 			
 		} catch (SQLException e) {

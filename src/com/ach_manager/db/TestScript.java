@@ -4,20 +4,21 @@ import java.sql.SQLException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import org.json.*;
+
 @Path("/test")
 public class TestScript {
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces({ MediaType.APPLICATION_JSON })
 	public String test(){
-		String test_string = "";
+		JSONObject test_json = new JSONObject();
 		try {
-			test_string += AppointmentManager.getDocAppointmentsByDocID(1);
-			test_string += "----------------------------------------------\n";
-			test_string += DoctorManager.getAllDoctorsInDepByID(2);
+			test_json.put("Val1", AppointmentManager.getDocAppointmentsByDocID(4));
+			test_json.put("Val2", DoctorManager.getAllDoctorsInDepByID(2));
 		} catch (SQLException e) {
-			test_string = "ERROR: Something went wrong. Fuck if we know"; 
+			test_json = null; 
 			e.printStackTrace();
 		}
-		return test_string;
+		return test_json.toString();
 	}
 }

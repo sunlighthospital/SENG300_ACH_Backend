@@ -1,21 +1,27 @@
 package com.ach_manager.db;
+
 import java.sql.*;
+import org.json.*;
 
 public class AppointmentManager {
 	// Gets all appointments associated with a doctor, given their id number
 	// Returns:
-	//	A string of newline delineated values representing appoints
-	//	Each value is separated by a tab character '\t'
-	//	String data in the following order
-	//		title -> description -> date time -> duration
-	//	Null on Failure
-	public static String getDocAppointmentsByDocID(int id) throws SQLException {
+	//	JSON containing a list of all appointments for the doctor
+	//	Titled "schedule"
+	//	Each value contains the following:
+	//		String "title"
+	//		String "description"
+	//		String "time" (yyy-MM-dd)
+	//		Int "duration" (in minutes)
+	//  Note: Duration of 0 indicates a full day event, null indicates error
+	public static JSONObject getDocAppointmentsByDocID(int id) throws SQLException {
 		// Initialize Connection
 		Connection con = ConnectionManager.getConnection();
 		// Holds results from query
 		Statement stmt = null;
-		// String representation of the schedule
-		String schedule = "";
+		// JSON representation of the schedule
+		JSONObject schedule = new JSONObject();
+		JSONArray sched_array = new JSONArray();
 		// Holds results from query
 		ResultSet rs = null;
 		// Query assembly (mySQL format)
@@ -24,39 +30,43 @@ public class AppointmentManager {
 			// Attempt to query
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
-			// While appointments remain, add their data to the string
+			// Add data to the JSON array
 			while (rs.next()) {
-				String title = rs.getString("title");
-				String desc = rs.getString("desc");
-				Timestamp timestamp = rs.getTimestamp("time");
-				String datetime = timestamp.toString();
-				int duration = rs.getInt("duration");
-				System.out.println(title + "\t" + desc + "\t" + datetime + "\t" + duration );
-				schedule = schedule + title + "\t" + desc + "\t" + datetime + "\t" + duration + "\n";
+				JSONObject jo = new JSONObject();
+				jo.put("title", rs.getString("title"));
+				jo.put("description", rs.getString("desc"));
+				jo.put("time", rs.getTimestamp("time").toString());
+				jo.put("duration", rs.getInt("duration"));
+				sched_array.put(jo);
 			}
+			// Place all of the data into the JSON object
+			schedule.put("schedule", sched_array);
 			stmt.close();
 			
 		} catch (SQLException e) {
+			schedule = null;
 			System.out.println(e);
 		}
-		
 		return schedule;
 	}
 	
-	// Find all appointments associated with a given doctor's name
+	// Gets all appointments associated with a doctor, given their id number
 	// Returns:
-	//	A string of newline delineated values representing appoints
-	//	Each value is separated by a tab character '\t'
-	//	String data in the following order
-	//		title -> description -> date time -> duration
-	// 	Null on Failure
-	public static String getDocAppointmentsByName(String name) throws SQLException {
+	//	JSON containing a list of all appointments for the doctor
+	//	Titled "schedule"
+	//	Each value contains the following:
+	//		String "title"
+	//		String "description"
+	//		Timestamp "time"
+	//		Int "duration" (in minutes)
+	//  Note: Duration of 0 indicates a full day event, null indicates error
+	public static JSONObject getDocAppointmentsByName(String name) throws SQLException {
 		// Initialize Connection
 		Connection con = ConnectionManager.getConnection();
 		// Statement of Intent
 		Statement stmt = null;
 		// String representation of the schedule
-		String schedule = "";
+		JSONObject schedule = null;
 		// Query to submit to the database
 		String query = "SELECT `id` FROM doctor WHERE name = \'" + name + "\';";
 		try {
@@ -65,16 +75,18 @@ public class AppointmentManager {
 			ResultSet rs = stmt.executeQuery(query);
 			rs.next();
 			int doc_id = rs.getInt("id");
-			
+			// Run the id-specific script defined above
 			schedule = getDocAppointmentsByDocID(doc_id);
 			stmt.close();
 		} catch (SQLException e) {
+			schedule = null;
 			System.out.println(e);
 		}
 		
 		return schedule;
 	}
-	
+
+	// Test main script, does not actually do anything in the server
     public static void main(String args[]) throws SQLException {
         getDocAppointmentsByName("Bob B. Bobbin");
     }
