@@ -37,7 +37,7 @@ public class ScheduleAPI {
     @Produces(MediaType.APPLICATION_JSON)
     // Pulls the next weeks worth of appointments for the doctor specified
     // Returns null if an error occurred
-    public String getFullScheduleSet(
+    public String getFullSchedule(
             @QueryParam("id") int id, 
             @QueryParam("start") String start_string,
             @QueryParam("end") String end_string
