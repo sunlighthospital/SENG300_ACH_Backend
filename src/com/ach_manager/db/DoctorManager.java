@@ -9,7 +9,7 @@ public class DoctorManager {
     //	JSON containing a list of all doctors registered in the system
     //	Contains "id", "name", "is_surgeon", and "department"
     //  Note: null indicates error
-    public static JSONObject getAllDoctors() throws SQLException {
+    public JSONObject getAllDoctors() throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
         // Holds results from query
@@ -20,9 +20,10 @@ public class DoctorManager {
         // Holds results from query
         ResultSet rs = null;
         // Query assembly (mySQL format)
-        String query = "SELECT doctor.id,doctor.name,doctor.is_surgeon,department.name AS dep_name "
-                                 + "FROM doctor LEFT JOIN (department) "
-                                 + "ON (doctor.dep_id = department.id);";
+        String query = "SELECT c.id, c.name, d.is_surgeon, p.name AS dep_name "
+                                 + "FROM doctor d "
+                                 + "INNER JOIN credential c ON d.cred_id = c.id "
+                                 + "INNER JOIN department p ON d.dep_id = p.id;";
         try {
             // Attempt the query
             stmt = con.createStatement();
@@ -51,7 +52,7 @@ public class DoctorManager {
     //	JSON containing a list of all doctors registered in the system in the department
     //	Contains "id", "name", "is_surgeon", and "department"
     //  Note: null indicates error
-    public static JSONObject getAllDoctorsInDepByID(int dep_id) throws SQLException {
+    public JSONObject getAllDoctorsInDepByID(int dep_id) throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
         // Holds results from query
@@ -62,10 +63,11 @@ public class DoctorManager {
         // Holds results from query
         ResultSet rs = null;
         // Query assembly (mySQL format)
-        String query = "SELECT doctor.id,doctor.name,doctor.is_surgeon "
-                                 + "FROM doctor LEFT JOIN (department) "
-                                 + "ON (doctor.dep_id = department.id) "
-                                 + "WHERE dep_id = " + dep_id + ";";
+        String query = "SELECT c.id, c.name, d.is_surgeon "
+                                 + "FROM doctor d "
+                                 + "INNER JOIN credential c ON d.cred_id = c.id "
+                                 + "INNER JOIN department p ON d.dep_id = p.id "
+                                 + "WHERE p.id = " + dep_id + ";";
         try {
             // Attempt the query
             stmt = con.createStatement();

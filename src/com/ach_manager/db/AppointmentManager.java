@@ -1,15 +1,10 @@
 package com.ach_manager.db;
 
 import java.sql.*;
-import java.util.Calendar;
-import java.util.TimeZone;
 
 import org.json.*;
 
 public class AppointmentManager {
-    // Variable instantiation
-    private final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("MST"));
-    
     // Gets all appointments associated with a doctor, given their id number
     // Returns:
     //  JSON containing a list of all appointments for the doctor
@@ -31,7 +26,7 @@ public class AppointmentManager {
         // Holds results from query
         ResultSet rs = null;
         // Query assembly (mySQL format)
-        String query = "SELECT * FROM appointment WHERE doctor_id = \'" + id + "\';";
+        String query = "SELECT * FROM appointment WHERE doc_id = \'" + id + "\';";
         try {
             // Attempt to query
             stmt = con.createStatement();
@@ -52,6 +47,9 @@ public class AppointmentManager {
         } catch (SQLException e) {
             schedule = null;
             e.printStackTrace();
+        } finally {
+            // Close the connection to avoid memory leaks
+            con.close();
         }
         return schedule;
     }
@@ -74,7 +72,7 @@ public class AppointmentManager {
             // String representation of the schedule
             JSONObject schedule = null;
             // Query to submit to the database
-            String query = "SELECT `id` FROM doctor WHERE name = \'" + name + "\';";
+            String query = "SELECT `id` FROM credential WHERE name = \'" + name + "\';";
             try {
                     // ID identifier
                     stmt = con.createStatement();
@@ -87,6 +85,10 @@ public class AppointmentManager {
             } catch (SQLException e) {
                     schedule = null;
                     System.out.println(e);
+            }
+            finally {
+                // Close the connection to avoid memory leaks
+                con.close();
             }
             return schedule;
     }

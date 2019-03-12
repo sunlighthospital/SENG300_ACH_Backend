@@ -3,11 +3,10 @@ package com.ach_manager.db;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Properties;
 
 class ConnectionManager {
-    // Primary connection for use with API
-    private static final Connection CON = makeConnection();
-
     // Establish the Connection
     static Connection makeConnection() {
         
@@ -24,26 +23,30 @@ class ConnectionManager {
         // Constants used to tell where to attempt connection
         final String db_url = "jdbc:mysql://localhost:3306/SENG300_Hospital";
 
-        final String db_user = "client";
-
-        final String db_pass = "password";
+        Properties props = new Properties();
+        
+        props.setProperty("user", "client");
+        props.setProperty("password", "password");
+        props.setProperty("serverTimezone", "MST");
 
         java.sql.Connection con = null;
 
         // Attempt Connection
         System.out.println("Attempting connection...");
         try {
-            con = DriverManager.getConnection(db_url, db_user, db_pass);
+            Properties info;
+            con = DriverManager.getConnection(db_url, props);
             System.out.println("Connected Successfully!");
         }
         catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Connection Failed!");
         }
         return con;
     }
 
     // Fetch the connection to the DB (for use with other wrapper functions)
     static Connection getConnection() {
-        return CON;
+        return makeConnection();
     }
 }

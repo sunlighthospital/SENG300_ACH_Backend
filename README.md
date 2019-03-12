@@ -9,12 +9,10 @@ Back-end server + database implementation for SENG 300 Project
 4. Import this repo into your IDE (both IDEs have easy handles for this)
 5. Import the SQL dump (db_test_data/SENG300_Hospital.sql) into your MySQL database as 'SENG300_Hospital'
 
-option 1; (in bash command line)
+### Importing mySQL database
 
-1. "sudo mysql -u root < SENG300_Hospital.sql"
-
-option 2; (in MySQL command line)
-
+(all within the MySQL command line)
 1. create database SENG300_Hospital;
 2. use SENG300_Hospital;
-3. source SENG300_Hospital.sql;
+3. source {path/to/your/project/location}/db_test_data/SENG300_Hospital.sql;
+4. source {path/to/your/project/location}/db_test_data/setup.sql
