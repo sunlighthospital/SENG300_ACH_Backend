@@ -46,7 +46,7 @@ public class CredentialManager {
                 results.put("name", rs.getString("name"));
                 results.put("department", rs.getString("dep_name"));
             } else {
-                results.put("ERROR", "CREDENTIALS NOT FOUND (RESPONSE.NOT_FOUND)");exit
+                results.put("ERROR", "CREDENTIALS NOT FOUND (RESPONSE.NOT_FOUND)");
             }
             // Close the connections to avoid memory leaks
             stmt.close();
