@@ -1,3 +1,7 @@
 build
 /nbproject/private/
 /dist/
+/bin/
+.classpath
+.project
+.idea/*
