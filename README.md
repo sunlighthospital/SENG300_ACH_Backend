@@ -42,7 +42,7 @@ Back-end server + database implementation for SENG 300 Project
         * start: Date and time to begin searching from (in "yyyy-MM-dd hh:mm:ss" format)
         * end: Date and time to finish searching (in "yyyy-MM-dd hh:mm:ss" format)
     - Returns the following:
-        * schedule: A list JSON style objects, each containing:
+        * schedule: A list of JSON style objects, each containing:
             + title: Name of the appointment
             + description: Description of the appointment
             + time: Time at which the appointment occurs
