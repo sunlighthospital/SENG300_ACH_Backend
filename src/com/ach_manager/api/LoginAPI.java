@@ -23,7 +23,7 @@ public class LoginAPI {
     
     // Input parameters: username and password
     // Checks if login is valid by verifying username and password
-    // Retturns: boolean (true for valid login and false otherwise)
+    // Returns: boolean (true for valid login and false otherwise)
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject verifyLogin(

@@ -38,7 +38,7 @@ public class DoctorManager {
                 data_array.put(jo);
             }
             // Place all of the data into the JSON object
-            data.put("schedule", data_array);
+            data.put("doctors", data_array);
             stmt.close();
         } catch (SQLException e) {
             data = null;
@@ -52,7 +52,7 @@ public class DoctorManager {
     //	JSON containing a list of all doctors registered in the system in the department
     //	Contains "id", "name", "is_surgeon", and "department"
     //  Note: null indicates error
-    public JSONObject getAllDoctorsInDepByID(int dep_id) throws SQLException {
+    public JSONObject getAllDoctorsInDep(int dep_id) throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
         // Holds results from query

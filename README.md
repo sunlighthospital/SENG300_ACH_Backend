@@ -54,3 +54,10 @@ Back-end server + database implementation for SENG 300 Project
         * password; Password for the user
     - Returns the following:
         * loginValid: True if the credentials matched a known user, false otherwise
++ doctor/all
+    - Returns a list of doctor credential values (named doctors)
+    - Each element contains the following:
+        * id: Doctor ID (used for querying the database)
+        * name: The doctor's name
+        * is_surgeon: Whether the doctor is a surgeon or not
+        * department: to which department the doctor belongs
