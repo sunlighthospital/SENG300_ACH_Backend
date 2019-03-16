@@ -21,13 +21,11 @@ import com.ach_manager.db.*;
 public class LoginAPI {
     CredentialManager loginManager = new CredentialManager();
     
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    
     // Input parameters: username and password
     // Checks if login is valid by verifying username and password
     // Retturns: boolean (true for valid login and false otherwise)
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public JSONObject verifyLogin(
         @QueryParam("username") String username, 
         @QueryParam("password") String password){
