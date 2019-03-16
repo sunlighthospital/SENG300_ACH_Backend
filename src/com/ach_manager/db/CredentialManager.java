@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.ws.rs.core.Response;
 
 import org.json.JSONObject;
 
@@ -20,7 +19,6 @@ import org.json.JSONObject;
 public class CredentialManager {
     // Checks if a user's credentials are in the database
     // If they are, returns a JSON file containing their name, phone number, and department (if any)
-    // 
     public JSONObject checkCredentials(String user, String pass) {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();

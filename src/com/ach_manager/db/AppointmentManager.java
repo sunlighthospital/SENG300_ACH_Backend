@@ -1,5 +1,7 @@
 package com.ach_manager.db;
 
+import com.ach_manager.db.Utils.ProgramCode;
+
 import java.sql.*;
 
 import org.json.*;
@@ -64,7 +66,7 @@ public class AppointmentManager {
     //		String "time"
     //		Int "duration" (in minutes)
     //  Note: Duration of 0 indicates a full day event, null indicates error
-    public JSONObject getDocAppointmentsByName(String name) throws SQLException {
+    public JSONObject getDocAppointmentsByDocName(String name) throws SQLException {
             // Initialize Connection
             Connection con = ConnectionManager.getConnection();
             // Statement of Intent
@@ -74,17 +76,17 @@ public class AppointmentManager {
             // Query to submit to the database
             String query = "SELECT `id` FROM credential WHERE name = \'" + name + "\';";
             try {
-                    // ID identifier
-                    stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(query);
-                    rs.next();
-                    int doc_id = rs.getInt("id");
-                    // Run the id-specific script defined above
-                    schedule = getDocAppointmentsByDocID(doc_id);
-                    stmt.close();
+                // ID identifier
+                stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                rs.next();
+                int doc_id = rs.getInt("id");
+                // Run the id-specific script defined above
+                schedule = getDocAppointmentsByDocID(doc_id);
+                stmt.close();
             } catch (SQLException e) {
-                    schedule = null;
-                    System.out.println(e);
+                schedule = null;
+                System.out.println(e);
             }
             finally {
                 // Close the connection to avoid memory leaks
@@ -93,8 +95,71 @@ public class AppointmentManager {
             return schedule;
     }
 
-    // Test script, does not actually do anything in the server
-    public void test(String args[]) throws SQLException {
-        getDocAppointmentsByName("Bob B. Bobbin");
+    public ProgramCode addAppointment(String title, String description, String time, int duration, int pat_id, int doc_id) {
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Statement of Intent
+        Statement stmt = null;
+        // String representation of the schedule
+        ProgramCode code = null;
+        // Query to submit to the database
+        String query = "INSERT INTO "
+                + "`appointment`(`title`,`desc`,`time`,`duration`,`doc_id`,`pat_id`) "
+                + "VALUES ('" + title + "','" + description + "','"
+                + time + "'," + duration + "," + doc_id + "," + pat_id + ");";
+        try {
+            // ID identifier
+            stmt = con.createStatement();
+            int vals = stmt.executeUpdate(query);
+            if (vals == 1) {
+                code = ProgramCode.SUCCESS;
+            } 
+            // If it returns a non-1 value, its erronous, and needs to be addressed
+            else {
+                code = ProgramCode.UNKNOWN_ERROR;
+                System.out.println("ERROR; values effect greater than 1 (" + vals + ")");
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("");
+            return ProgramCode.DUPLICATE_ENTRY;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+    
+    public ProgramCode dropAppointment(int pat_id, int doc_id, String time) {
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Statement of Intent
+        Statement stmt = null;
+        // String representation of the schedule
+        ProgramCode code = ProgramCode.UNKNOWN_ERROR;
+        // Query to submit to the database
+        String query = "DELETE FROM appointment WHERE "
+                + "time = '" + time + "' AND "
+                + "doc_id = " + doc_id + " AND "
+                + "pat_id = " + pat_id + ";";
+        try {
+            // ID identifier
+            stmt = con.createStatement();
+            int vals = stmt.executeUpdate(query);
+            if (vals == 1) {
+                code = ProgramCode.SUCCESS;
+            }
+            else if (vals == 0) {
+                code = ProgramCode.NO_ENTRY_FOUND;
+            }
+            else {
+                System.out.println("ERROR; Value of " + vals + " returned (should be 0 or 1)");
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return code;
     }
 }
