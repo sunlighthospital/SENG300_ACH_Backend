@@ -4,4 +4,6 @@ build
 /bin/
 .classpath
 .project
-.idea/*
+/.idea/*
+.DS_Store
+out/*
