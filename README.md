@@ -54,6 +54,27 @@ Back-end server + database implementation for SENG 300 Project
         * password; Password for the user
     - Returns the following:
         * loginValid: True if the credentials matched a known user, false otherwise
++ editDoctorSchedule/add
+    - Returns a JSONObject containing a message to be displayed on screen after adding a new appointment 
+    - Take the following parameters:
+        * Title (String); // Title of appointment
+        * description (String); // Description of appointment
+        * time (String); // Time of appointment
+        * Duration (int); // Duration of appointment
+        * Patient ID (int); // Patient's ID
+        * Doctor ID (int); // Doctor's ID
+     - Returns the following:
+        * result: A JSONOBject containing:
+            + message that can be any one of the following strings: {Appointment was successfully added, Appointment was successfully added, An appointment with the entered information already exists}
++ editDoctorSchedule/drop
+    - Returns a JSONObject containing a message to be displayed on screen after dropping an appointment 
+    - Take the following parameters in the order:
+        * Patient ID (int); // Patient's ID
+        * Doctor ID (int); // Doctor's ID
+        * time (String); // Time of appointment
+     - Returns the following:
+        * result: A JSONOBject containing:
+            + message that can be any one of the following strings: {Appointment was successfully dropped, AAn unknown error ocurred during dropping appointment, An appointment with the entered information does not exist}        
 + doctor/all
     - Returns a list of doctor credential values (named doctors)
     - Each element contains the following:
