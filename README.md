@@ -14,8 +14,9 @@ Back-end server + database implementation for SENG 300 Project
 (all within the MySQL command line)
 1. create database SENG300_Hospital;
 2. use SENG300_Hospital;
-3. source {path/to/your/project/location}/db_test_data/SENG300_Hospital.sql;
-4. source {path/to/your/project/location}/db_test_data/setup.sql
+3. source {path/to/your/project/location}/db/SENG300_Hospital.sql;
+4. source {path/to/your/project/location}/db/setup.sql
+5. source {path/to/your/project/location}/db/admin.sql
 * * *
 ### Using the API
 + All hooks exist under localhost:{port}/com.ach_manager/api
