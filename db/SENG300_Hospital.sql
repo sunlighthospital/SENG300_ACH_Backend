@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `SENG300_Hospital`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `SENG300_Hospital` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+
+USE `SENG300_Hospital`;
+
+--
 -- Table structure for table `administrator`
 --
 
@@ -202,6 +210,10 @@ LOCK TABLES `receptionist` WRITE;
 INSERT INTO `receptionist` VALUES ('Head Receptionist',8);
 /*!40000 ALTER TABLE `receptionist` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'SENG300_Hospital'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -212,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-17 21:49:18
+-- Dump completed on 2019-03-17 22:01:06
