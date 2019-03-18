@@ -66,7 +66,6 @@ public class ScheduleAPI {
             // Keep adding appointments as long as appointments remain to be tested
             while ( (i < init_ja.length()) ) {
                 cur_date = convertDateString(init_ja.getJSONObject(i).get("time").toString());
-                i++;
                 // Check to make sure the dates are in the appropriate bounds
                 if ( (cur_date.compareTo(start_date) >= 0) 
                         && (cur_date.compareTo(end_date) < 0) ) {
@@ -77,6 +76,7 @@ public class ScheduleAPI {
                     jo.put("duration", init_ja.getJSONObject(i).get("duration"));
                     fin_ja.put(cur_date);
                 }
+                i++;
             }
             // Finalize the JSON object
             fin_schedule.put("schedule", fin_ja);
