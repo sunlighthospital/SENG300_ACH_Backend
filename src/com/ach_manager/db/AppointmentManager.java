@@ -7,16 +7,16 @@ import java.sql.*;
 import org.json.*;
 
 public class AppointmentManager {
-    // Gets all appointments associated with a doctor, given their id number
-    // Returns:
-    //  JSON containing a list of all appointments for the doctor
-    //  Titled "schedule"
-    //  Each value contains the following:
-    //      String "title"
-    //      String "description"
-    //      String "time" (yyyy-MM-dd)
-    //      Int "duration" (in minutes)
-    //  Note: Duration of 0 indicates a full day event, null indicates error
+    /**
+     * Adds an appointment to the 
+     * @param id Doctor ID to search for the appointments under
+     * @return A JSONObject containing a JSONObjectList "schedule", with elements containing the following parameters:
+     *  title: Title of the appointment
+     *  description: Description of the appointment
+     *  time: Time the appointment is schedule to take place
+     *  duration: Expected duration of the appointment (in minutes)
+     * @throws java.sql.SQLException
+    **/
     public JSONObject getDocAppointmentsByDocID(int id) throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
@@ -56,16 +56,12 @@ public class AppointmentManager {
         return schedule;
     }
 
-    // Gets all appointments associated with a doctor, given their name
-    // Returns:
-    //	JSON containing a list of all appointments for the doctor
-    //	Titled "schedule"
-    //	Each value contains the following:
-    //		String "title"
-    //		String "description"
-    //		String "time"
-    //		Int "duration" (in minutes)
-    //  Note: Duration of 0 indicates a full day event, null indicates error
+    /**
+     * Adds an appointment to the 
+     * @param name name of the doctor to search for
+     * @return A JSONObject with the parameters 
+     * @throws java.sql.SQLException
+    **/
     public JSONObject getDocAppointmentsByDocName(String name) throws SQLException {
             // Initialize Connection
             Connection con = ConnectionManager.getConnection();
@@ -95,6 +91,16 @@ public class AppointmentManager {
             return schedule;
     }
 
+    /**
+     * Adds an appointment to the 
+     * @param title Title to give the appointment 
+     * @param description Description of the appointment (why its being done)
+     * @param time Time the appointment starts (yyyy-MM-dd hh:mm:ss)
+     * @param duration Expected duration (in minutes) for the appointment
+     * @param pat_id The Patient's id number
+     * @param doc_id The Doctor's id number
+     * @return The ProgramCode which indicates the result of the execution
+    **/
     public ProgramCode addAppointment(String title, String description, String time, int duration, int pat_id, int doc_id) {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
@@ -130,6 +136,13 @@ public class AppointmentManager {
         return code;
     }
     
+    /**
+     * Adds an appointment to the 
+     * @param time Time the appointment starts (yyyy-MM-dd hh:mm:ss)
+     * @param pat_id The Patient's id number
+     * @param doc_id The Doctor's id number
+     * @return The ProgramCode which indicates the result of the execution
+    **/
     public ProgramCode dropAppointment(int pat_id, int doc_id, String time) {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();

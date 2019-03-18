@@ -17,8 +17,16 @@ import org.json.JSONObject;
  * @author kalum
  */
 public class CredentialManager {
-    // Checks if a user's credentials are in the database
-    // If they are, returns a JSON file containing their name, phone number, and department (if any)
+    /**
+     *
+     * @param user Username
+     * @param pass Password
+     * @return A JSONObject containing the following parameters:
+     *  name: Name of the user (non-existent if credentials were not found)
+     *  department: Department of the doctor, if they are a doctor
+     *  reception_role: Role of the user in reception, if they are a receptionist
+     *  admin_role: Role of the user in administration, if they are an administrator
+     */
     public JSONObject checkCredentials(String user, String pass) {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
@@ -41,7 +49,7 @@ public class CredentialManager {
             // Attempt the query
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
-            // Add the results to the json object parametes
+            // Add the results to the json object parameters
             if (rs.next()) {
                 results.put("name", rs.getString("name"));
                 results.put("department", rs.getString("dep_name"));

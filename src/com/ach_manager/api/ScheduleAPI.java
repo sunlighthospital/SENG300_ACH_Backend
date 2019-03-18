@@ -32,11 +32,20 @@ public class ScheduleAPI {
         return date;
     }
 
+    /**
+     * Gets the schedule for the doctor, bounded by the start and end times
+     * @param id The doctor's ID
+     * @param start_string Start date (as a String in "yyyy-MM-dd hh:mm:ss" format)
+     * @param end_string End date (as a String in "yyyy-MM-dd hh:mm:ss" format)
+     * @return A JSONObject containing a JSONObjectList "schedule", with elements containing the following parameters:
+     *  title: Title of the appointment
+     *  description: Description of the appointment
+     *  time: Time the appointment is schedule to take place
+     *  duration: Expected duration of the appointment (in minutes)
+     */
     @Path("/bounded")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    // Pulls the next weeks worth of appointments for the doctor specified
-    // Returns null if an error occurred
     public String getFullSchedule(
             @QueryParam("id") int id, 
             @QueryParam("start") String start_string,
@@ -61,6 +70,11 @@ public class ScheduleAPI {
                 // Check to make sure the dates are in the appropriate bounds
                 if ( (cur_date.compareTo(start_date) >= 0) 
                         && (cur_date.compareTo(end_date) < 0) ) {
+                    JSONObject jo = new JSONObject();
+                    jo.put("title", init_ja.getJSONObject(i).get("title"));
+                    jo.put("description", init_ja.getJSONObject(i).get("description"));
+                    jo.put("time", init_ja.getJSONObject(i).get("time"));
+                    jo.put("duration", init_ja.getJSONObject(i).get("duration"));
                     fin_ja.put(cur_date);
                 }
             }
