@@ -16,12 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `SENG300_Hospital`
+-- Table structure for table `administrator`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `SENG300_Hospital` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+DROP TABLE IF EXISTS `administrator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `administrator` (
+  `role` text,
+  `cred_id` int(11) DEFAULT NULL,
+  KEY `cred_id` (`cred_id`),
+  CONSTRAINT `administrator_ibfk_1` FOREIGN KEY (`cred_id`) REFERENCES `credential` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-USE `SENG300_Hospital`;
+--
+-- Dumping data for table `administrator`
+--
+
+LOCK TABLES `administrator` WRITE;
+/*!40000 ALTER TABLE `administrator` DISABLE KEYS */;
+INSERT INTO `administrator` VALUES ('Primary Admin',8);
+/*!40000 ALTER TABLE `administrator` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `appointment`
@@ -37,6 +54,7 @@ CREATE TABLE `appointment` (
   `pat_id` int(11) DEFAULT NULL,
   `doc_id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
+  UNIQUE KEY `multiValPair` (`time`,`doc_id`,`pat_id`),
   KEY `fk_pat` (`pat_id`),
   KEY `doc_id` (`doc_id`),
   CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`doc_id`) REFERENCES `credential` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -68,7 +86,7 @@ CREATE TABLE `credential` (
   `phone` varchar(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +95,7 @@ CREATE TABLE `credential` (
 
 LOCK TABLES `credential` WRITE;
 /*!40000 ALTER TABLE `credential` DISABLE KEYS */;
-INSERT INTO `credential` VALUES (1,'AndyPants','pass1','111-222-3344','Andy A. Anderson'),(2,'Alphyboi','pass2','123-123-1234','Alpha A. Alphonzo'),(3,'bill_hilly','password','987-654-3210','Bill B. Billsner'),(4,'bobbin','pass_word','291-657-2534','Bob B. Bobbin'),(5,'grassybryar','pass_wordy','834-526-7462','Bryan B. Briar'),(6,'no_one_cathy','im_good_cat','111-234-0987','Cathy C. Catherine'),(7,'no_one_cathy_really','im_better_cat','222-432-5432','Catherine C. Cathy');
+INSERT INTO `credential` VALUES (1,'AndyPants','pass1','111-222-3344','Andy A. Anderson'),(2,'Alphyboi','pass2','123-123-1234','Alpha A. Alphonzo'),(3,'bill_hilly','password','987-654-3210','Bill B. Billsner'),(4,'bobbin','pass_word','291-657-2534','Bob B. Bobbin'),(5,'grassybryar','pass_wordy','834-526-7462','Bryan B. Briar'),(6,'no_one_cathy','im_good_cat','111-234-0987','Cathy C. Catherine'),(7,'no_one_cathy_really','im_better_cat','222-432-5432','Catherine C. Cathy'),(8,'admin_01','a_good_password','403-434-5678','Urist AdminPants');
 /*!40000 ALTER TABLE `credential` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,8 +179,29 @@ INSERT INTO `patient` VALUES (1,'Jane Doe',0,'123-456-7890'),(2,'John Doe',1,'75
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'SENG300_Hospital'
+-- Table structure for table `receptionist`
 --
+
+DROP TABLE IF EXISTS `receptionist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `receptionist` (
+  `role` text,
+  `cred_id` int(11) DEFAULT NULL,
+  KEY `cred_id` (`cred_id`),
+  CONSTRAINT `receptionist_ibfk_1` FOREIGN KEY (`cred_id`) REFERENCES `credential` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `receptionist`
+--
+
+LOCK TABLES `receptionist` WRITE;
+/*!40000 ALTER TABLE `receptionist` DISABLE KEYS */;
+INSERT INTO `receptionist` VALUES ('Head Receptionist',8);
+/*!40000 ALTER TABLE `receptionist` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -173,4 +212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-12  3:06:25
+-- Dump completed on 2019-03-17 21:49:18
