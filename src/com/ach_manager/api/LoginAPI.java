@@ -35,7 +35,7 @@ public class LoginAPI {
             // CheckCredentials checks whether username and password exist in database
             JSONObject user_details = loginManager.checkCredentials(username, password);
             //if user exists then login valid/true
-            if(user_details.get("Error") == "CREDENTIALS NOT FOUND (RESPONSE.NOT_FOUND)"){  
+            if(user_details.isNull("name")){  
                 boolVal.put("loginValid", false);
                 return boolVal; //login invalid/false
             }

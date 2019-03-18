@@ -29,10 +29,12 @@ public class CredentialManager {
         // Holds results from query
         ResultSet rs = null;
         // Query assembly (mySQL format)
-        String query = "SELECT c.name, p.name AS dep_name "
+        String query = "SELECT c.name, p.name AS dep_name, r.role as rec_role, a.role as adm_role "
                 + "FROM credential c "
                 + "LEFT JOIN doctor d ON c.id = d.cred_id "
                 + "LEFT JOIN department p ON d.dep_id = p.id "
+                + "LEFT JOIN receptionist r ON c.id = r.cred_id "
+                + "LEFT JOIN administrator a ON c.id = a.cred_id "
                 + "WHERE c.username = '" + user + "' "
                 + "AND c.password = '" + pass + "';";
         try {
@@ -43,8 +45,8 @@ public class CredentialManager {
             if (rs.next()) {
                 results.put("name", rs.getString("name"));
                 results.put("department", rs.getString("dep_name"));
-            } else {
-                results.put("ERROR", "CREDENTIALS NOT FOUND (RESPONSE.NOT_FOUND)");
+                results.put("reception_role", rs.getString("rec_role"));
+                results.put("admin_role", rs.getString("adm_role"));
             }
             // Close the connections to avoid memory leaks
             stmt.close();

@@ -22,6 +22,7 @@ public class TestScript {
             test_json.put("getAllDoctors", doc_man.getAllDoctors());
             test_json.put("getAllDoctorsInDep", doc_man.getAllDoctorsInDep(2));
             test_json.put("checkCredentials (Valid)", cred_man.checkCredentials("AndyPants", "pass1"));
+            test_json.put("checkCredentials (Admin)", cred_man.checkCredentials("admin_01", "a_good_password"));
             test_json.put("checkCredentials (Invalid)", cred_man.checkCredentials("FakeyMcFakerson", "lolno"));
             test_json.put("addAppointment (Valid)", app_man.addAppointment("Test_app", "Test Appointment", "2019-03-10 09:30:00.0", 30, 1, 1));
             test_json.put("addAppointment (Redundant)", app_man.addAppointment("Test_app", "Test Appointment", "2019-03-10 09:30:00.0", 30, 1, 1));
