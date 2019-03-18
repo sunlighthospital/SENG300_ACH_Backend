@@ -30,12 +30,12 @@ public class editDoctorSchedule{
     // Returns:
     //	JSONObject containing a message to be displayed on screen after adding a new appointment 
     public JSONObject addAppt(
-            @QueryParam("Title") String Title,              // Title of appointment
-            @QueryParam("Description") String description,  // Description of appointment
-            @QueryParam("Time") String time,                // Time of appointment
-            @QueryParam("Duration") int duration,           // duration of appointment
-            @QueryParam("Patient ID")int patientID,         // Patient's ID
-            @QueryParam("Doctor ID") int doc_id){           // Doctor's ID
+            @QueryParam("title") String Title,              // Title of appointment
+            @QueryParam("description") String description,  // Description of appointment
+            @QueryParam("time") String time,                // Time of appointment
+            @QueryParam("duration") int duration,           // duration of appointment
+            @QueryParam("patientID")int patientID,         // Patient's ID
+            @QueryParam("doctorID") int doc_id){           // Doctor's ID
         
         try {
             JSONObject result = new JSONObject();
@@ -45,7 +45,7 @@ public class editDoctorSchedule{
                 result.put("Message", "Appointment was successfully added");
             }
             else if(status == ProgramCode.UNKNOWN_ERROR){ 
-                result.put("Message", "An unknown error ocurred during adding appointment");
+                result.put("Message", "c");
             }
             else if(status == ProgramCode.DUPLICATE_ENTRY){ 
                 result.put("Message", "An appointment with the entered information already exists");
@@ -62,9 +62,9 @@ public class editDoctorSchedule{
     // Returns:
     //	JSONObject containing a message to be displayed on screen after dropping appointment 
     public JSONObject dropAppt(
-             @QueryParam("Patient ID") int patientID,       // ID of patient dropping the appointment
-             @QueryParam("Doctor ID") int docID,            // Doctor's ID 
-             @QueryParam("Time") String time){              // Time of appointment
+             @QueryParam("patientID") int patientID,       // ID of patient dropping the appointment
+             @QueryParam("doctorID") int docID,            // Doctor's ID 
+             @QueryParam("time") String time){              // Time of appointment
                
         try {
             JSONObject result = new JSONObject();
