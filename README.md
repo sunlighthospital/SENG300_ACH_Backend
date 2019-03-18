@@ -14,8 +14,9 @@ Back-end server + database implementation for SENG 300 Project
 (all within the MySQL command line)
 1. create database SENG300_Hospital;
 2. use SENG300_Hospital;
-3. source {path/to/your/project/location}/db_test_data/SENG300_Hospital.sql;
-4. source {path/to/your/project/location}/db_test_data/setup.sql
+3. source {path/to/your/project/location}/db/SENG300_Hospital.sql;
+4. source {path/to/your/project/location}/db/setup.sql
+5. source {path/to/your/project/location}/db/admin.sql
 * * *
 ### Using the API
 + All hooks exist under localhost:{port}/com.ach_manager/api
@@ -55,23 +56,25 @@ Back-end server + database implementation for SENG 300 Project
     - Returns the following:
         * loginValid: True if the credentials matched a known user, false otherwise
 + editDoctorSchedule/add
+    - localhost:{port}/com.ach_manager/api/editDoctorSchedule/add?Title="enterTitle"&description="enterDecription"&time="01:03:54"&Duration="02:03:00"&PatientID=X&DoctorID=Y
     - Returns a JSONObject containing a message to be displayed on screen after adding a new appointment 
     - Take the following parameters:
-        * Title (String); // Title of appointment
-        * description (String); // Description of appointment
-        * time (String); // Time of appointment
-        * Duration (int); // Duration of appointment
-        * Patient ID (int); // Patient's ID
-        * Doctor ID (int); // Doctor's ID
+        * Title: Title of appointment
+        * description: Description of appointment
+        * time: Time of appointment "hh:mm:ss" format
+        * Duration: Duration of appointment "hh:mm:ss" format
+        * PatientID: Patient's ID e.g. X that can be any integer 1-9
+        * DoctorID: Doctor's ID e.g. Y that can be any integer 1-9
      - Returns the following:
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Appointment was successfully added, Appointment was successfully added, An appointment with the entered information already exists}
 + editDoctorSchedule/drop
+    - localhost:{port}/com.ach_manager/api/editDoctorSchedule/drop?PatientID=X&DoctorID=Y&time="02:03:00"
     - Returns a JSONObject containing a message to be displayed on screen after dropping an appointment 
     - Take the following parameters in the order:
-        * Patient ID (int); // Patient's ID
-        * Doctor ID (int); // Doctor's ID
-        * time (String); // Time of appointment
+        * PatientID: Patient's ID
+        * DoctorID: Doctor's ID
+        * time: Time of appointment "hh:mm:ss" format
      - Returns the following:
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Appointment was successfully dropped, AAn unknown error ocurred during dropping appointment, An appointment with the entered information does not exist}        
