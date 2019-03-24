@@ -3,7 +3,6 @@ package com.ach_manager.db;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.util.Properties;
 
 class ConnectionManager {

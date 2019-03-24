@@ -18,9 +18,9 @@ import org.json.JSONObject;
  */
 public class CredentialManager {
     /**
-     *
-     * @param user Username
-     * @param pass Password
+     * Check the user's credentials against those which already exist in the database
+     * @param user The user's username
+     * @param pass The user's password
      * @return A JSONObject containing the following parameters:
      *  name: Name of the user (non-existent if credentials were not found)
      *  department: Department of the doctor, if they are a doctor

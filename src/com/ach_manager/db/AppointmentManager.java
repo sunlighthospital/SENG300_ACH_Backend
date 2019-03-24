@@ -57,9 +57,16 @@ public class AppointmentManager {
     }
 
     /**
-     * Adds an appointment to the 
-     * @param name name of the doctor to search for
-     * @return A JSONObject with the parameters 
+     * Gets all appointments associated with a doctor's name
+     * Defaults to the first entry if doctor's with identical names exist
+     * @param name The name of the doctor to search for
+     * @return A JSONObject containing a JSONObjectList "schedule":
+     *  Each element contains the following parameters:
+     *      title: Title of the appointment
+     *      description: Description of the appointment
+     *      time: Time the appointment is schedule to take place
+     *      duration: Expected duration of the appointment (in minutes)
+     *      Returns null on error
      * @throws java.sql.SQLException
     **/
     public JSONObject getDocAppointmentsByDocName(String name) throws SQLException {
@@ -100,6 +107,7 @@ public class AppointmentManager {
      * @param pat_id The Patient's id number
      * @param doc_id The Doctor's id number
      * @return The ProgramCode which indicates the result of the execution
+     * @see com.ach_manager.db.Utils
     **/
     public ProgramCode addAppointment(String title, String description, String time, int duration, int pat_id, int doc_id) {
         // Initialize Connection
@@ -137,7 +145,7 @@ public class AppointmentManager {
     }
     
     /**
-     * Adds an appointment to the 
+     * Removes an appointment from the database
      * @param time Time the appointment starts (yyyy-MM-dd hh:mm:ss)
      * @param pat_id The Patient's id number
      * @param doc_id The Doctor's id number

@@ -4,11 +4,17 @@ import java.sql.*;
 import org.json.*;
 
 public class DoctorManager {	
-    // Gets all doctors in the system
-    // Returns:
-    //	JSON containing a list of all doctors registered in the system
-    //	Contains "id", "name", "is_surgeon", and "department"
-    //  Note: null indicates error
+    /**
+     * Fetches all doctors contained within the database
+     * @return A JSON object containing details about all doctors in the system (in the "doctors" tag)
+     *  Each entry contains the following elements:
+     *      id: The doctor's ID number
+     *      name: The doctor's name
+     *      is_surgeon: Whether the doctor is a surgeon or not
+     *      department: Department the doctor is associated with
+     *  Returns null on error
+     * @throws SQLException 
+     */
     public JSONObject getAllDoctors() throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
@@ -47,11 +53,17 @@ public class DoctorManager {
         return data;
     }
 
-    // Gets all doctors in the system in a given department by the latter's id number
-    // Returns:
-    //	JSON containing a list of all doctors registered in the system in the department
-    //	Contains "id", "name", "is_surgeon", and "department"
-    //  Note: null indicates error
+    /**
+     * 
+     * @param dep_id Department in which to look within
+     * @return A JSON object containing details about all doctors in the specified department (in the "doctors" tag)
+     *  Each entry contains the following elements:
+     *      id: The doctor's ID number
+     *      name: The doctor's name
+     *      is_surgeon: Whether the doctor is a surgeon or not
+     *  Returns null on error
+     * @throws SQLException 
+     */
     public JSONObject getAllDoctorsInDep(int dep_id) throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
