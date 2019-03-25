@@ -70,32 +70,33 @@ public class AppointmentManager {
      * @throws java.sql.SQLException
     **/
     public JSONObject getDocAppointmentsByDocName(String name) throws SQLException {
-            // Initialize Connection
-            Connection con = ConnectionManager.getConnection();
-            // Statement of Intent
-            Statement stmt = null;
-            // String representation of the schedule
-            JSONObject schedule = null;
-            // Query to submit to the database
-            String query = "SELECT `id` FROM credential WHERE name = \'" + name + "\';";
-            try {
-                // ID identifier
-                stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(query);
-                rs.next();
-                int doc_id = rs.getInt("id");
-                // Run the id-specific script defined above
-                schedule = getDocAppointmentsByDocID(doc_id);
-                stmt.close();
-            } catch (SQLException e) {
-                schedule = null;
-                System.out.println(e);
-            }
-            finally {
-                // Close the connection to avoid memory leaks
-                con.close();
-            }
-            return schedule;
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Statement of Intent
+        Statement stmt = null;
+        // String representation of the schedule
+        JSONObject schedule = null;
+        // Query to submit to the database
+        String query = "SELECT `id` FROM credential WHERE name = \'" + name + "\';";
+        try {
+            // ID identifier
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            int doc_id = rs.getInt("id");
+            // Run the id-specific script defined above
+            schedule = getDocAppointmentsByDocID(doc_id);
+            stmt.close();
+        } catch (SQLException e) {
+            schedule = null;
+            System.out.println(e);
+        }
+        finally {
+            // Close connections to avoid memory leaks
+            stmt.close();
+            con.close();
+        }
+        return schedule;
     }
 
     /**
@@ -127,11 +128,11 @@ public class AppointmentManager {
             int vals = stmt.executeUpdate(query);
             if (vals == 1) {
                 code = ProgramCode.SUCCESS;
-            } 
+            }
             // If it returns a non-1 value, its erronous, and needs to be addressed
             else {
                 code = ProgramCode.UNKNOWN_ERROR;
-                System.out.println("ERROR; values effect greater than 1 (" + vals + ")");
+                System.out.println("ERROR; values effect not 1 (" + vals + ")");
             }
             stmt.close();
             con.close();
@@ -164,7 +165,7 @@ public class AppointmentManager {
                 + "doc_id = " + doc_id + " AND "
                 + "pat_id = " + pat_id + ";";
         try {
-            // ID identifier
+            // Attempt to drop the designated value
             stmt = con.createStatement();
             int vals = stmt.executeUpdate(query);
             if (vals == 1) {

@@ -28,6 +28,9 @@ public class TestScript {
             test_json.put("addAppointment (Redundant)", app_man.addAppointment("Test_app", "Test Appointment", "2019-03-10 09:30:00.0", 30, 1, 1));
             test_json.put("dropAppointment (Valid)", app_man.dropAppointment(1, 1, "2019-03-10 09:30:00.0"));
             test_json.put("dropAppointment (Missing)", app_man.dropAppointment(1, 1, "2019-03-10 09:30:00.0"));
+            int cred_val = cred_man.addCredentials("Test", "Test_Pass", "113-527-9983", "Test Credential");
+            test_json.put("addCredential (Valid)", cred_val);
+            test_json.put("dropCredential (Valid)", cred_man.dropCredentials(cred_val));
         } catch (SQLException e) {
             test_json = null; 
             e.printStackTrace();

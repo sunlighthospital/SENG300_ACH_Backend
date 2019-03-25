@@ -5,6 +5,7 @@
  */
 package com.ach_manager.db;
 
+import com.ach_manager.db.Utils.ProgramCode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,5 +65,86 @@ public class CredentialManager {
             System.out.println(e);
         }
         return results;
+    }
+    
+    /**
+     * Adds a new credential set to the database
+     * @return The id number of the new credential
+     *  Returns -1 if the credentials were unable to be added (duplication error)
+     */
+    int addCredentials(String user, String pass, String phone, String name) {
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Statement of Intent
+        Statement stmt = null;
+        // Initialize id number
+        int cred_id = -1;
+        // Initial inser query string
+        String in_query = "INSERT INTO "
+                + "`credential`(`username`,`password`,`phone`,`name`) "
+                + "VALUES ('" + user + "','" + pass + "','"
+                + phone + "','" + name + "');";
+        String id_query = "SELECT `id` FROM credential WHERE "
+                + "username = '" + user + "' AND "
+                + "password = '" + pass + "';";
+        // New entry insertion into the database
+        try {
+            // Insert the new credential into the database
+            stmt = con.createStatement();
+            int vals = stmt.executeUpdate(in_query);
+            if (vals != 1) { // Error check before proceeding
+                System.out.println("ERROR; values effect not 1 (" + vals + ")");
+                stmt.close();
+                con.close();
+                return -1;
+            }
+            // Get the ID of the new credential
+            ResultSet rs = stmt.executeQuery(id_query);
+            if (rs != null) {
+                rs.next();
+                cred_id = rs.getInt("id");
+            } else {
+                cred_id = -1;
+            }
+            // Close connections to avoid memory leaks
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            cred_id = -1;
+            e.printStackTrace();
+        }
+        return cred_id;
+    }
+    
+    ProgramCode dropCredentials(int cred_id) throws SQLException {
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Holds results from query
+        Statement stmt = null;
+        // Program code for return
+        ProgramCode code = ProgramCode.UNKNOWN_ERROR;
+        // Query string
+        String query = "DELETE FROM credential WHERE "
+                + "id = '" + cred_id + "';";
+        try {
+            // Attempt to drop the designated value
+            stmt = con.createStatement();
+            int vals = stmt.executeUpdate(query);
+            if (vals == 1) {
+                code = ProgramCode.SUCCESS;
+            }
+            else if (vals == 0) {
+                code = ProgramCode.NO_ENTRY_FOUND;
+            }
+            else {
+                System.out.println("ERROR; Value of " + vals + " returned (should be 0 or 1)");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            stmt.close();
+            con.close();
+        }
+        return code;
     }
 }

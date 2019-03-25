@@ -141,6 +141,7 @@
             <test-roots/>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>admin</word>
             <word>Utils</word>
         </spellchecker-wordlist>
     </configuration>
