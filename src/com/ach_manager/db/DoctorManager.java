@@ -1,5 +1,6 @@
 package com.ach_manager.db;
 
+import com.ach_manager.db.Utils.ProgramCode;
 import java.sql.*;
 import org.json.*;
 
@@ -101,5 +102,63 @@ public class DoctorManager {
         }
 
         return data;
+    }
+    
+    /**
+     * Update a person's credentials to give them doctor privileges w/ a given department
+     * @param cred_id
+     * @param is_surgeon
+     * @param dep_id
+     * @return The result of the function, as a ProgramCode
+     * @see com.ach_manager.db.Utils
+     * @throws SQLException 
+     */
+    public ProgramCode addDoctor(int cred_id, boolean is_surgeon, int dep_id) throws SQLException {
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Statement of Intent
+        Statement stmt = null;
+        try {
+            String query = "INSERT INTO `doctor`(`cred_id`,`dep_id`,`is_surgeon`) VALUES "
+                    + "('" + cred_id + "','" + dep_id + "','" + is_surgeon + "');";
+            int vals = stmt.executeUpdate(query);
+            if (vals == 1) {
+                return ProgramCode.SUCCESS;
+            } else if (vals == 0) {
+                return ProgramCode.DUPLICATE_ENTRY;
+            } else {
+                return ProgramCode.UNKNOWN_ERROR;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ProgramCode.UNKNOWN_ERROR;
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+    
+    /**
+     * Remove a doctor from the database
+     * @param doc_id The ID of the doctor to drop (safety checks to make sure the individual is, in fact, a doctor)
+     * @return A ProgramCode describing the result of the function code
+     * @throws SQLException 
+     */
+    public ProgramCode dropDoctor(int doc_id) throws SQLException {
+        // Setup
+        CredentialManager cred_man = new CredentialManager();
+        JSONArray arr = getAllDoctors().getJSONArray("doctors");
+        int i = 0;
+        int id = -1;
+        // Make sure the passed credential is a valid doctor id; if so, drop them
+        while (id <= doc_id && i < arr.length()) {
+            id = arr.getJSONObject(i).getInt("id");
+            System.out.println();
+            if (id == doc_id) {
+                return cred_man.dropCredentials(doc_id);
+            }
+            i++;
+        }
+        return ProgramCode.NO_ENTRY_FOUND;
     }
 }

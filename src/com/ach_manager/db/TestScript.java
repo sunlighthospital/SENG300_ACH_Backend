@@ -31,6 +31,7 @@ public class TestScript {
             int cred_val = cred_man.addCredentials("Test", "Test_Pass", "113-527-9983", "Test Credential");
             test_json.put("addCredential (Valid)", cred_val);
             test_json.put("dropCredential (Valid)", cred_man.dropCredentials(cred_val));
+            test_json.put("dropDoctor (Invalid)", doc_man.dropDoctor(20));
         } catch (SQLException e) {
             test_json = null; 
             e.printStackTrace();

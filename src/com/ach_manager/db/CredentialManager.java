@@ -72,7 +72,7 @@ public class CredentialManager {
      * @return The id number of the new credential
      *  Returns -1 if the credentials were unable to be added (duplication error)
      */
-    int addCredentials(String user, String pass, String phone, String name) {
+    public int addCredentials(String user, String pass, String phone, String name) {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
         // Statement of Intent

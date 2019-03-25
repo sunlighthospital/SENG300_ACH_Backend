@@ -34,7 +34,7 @@ CREATE TABLE `administrator` (
   `role` text,
   `cred_id` int(11) DEFAULT NULL,
   KEY `cred_id` (`cred_id`),
-  CONSTRAINT `administrator_ibfk_1` FOREIGN KEY (`cred_id`) REFERENCES `credential` (`id`)
+  CONSTRAINT `administrator_ibfk_1` FOREIGN KEY (`cred_id`) REFERENCES `credential` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,7 +93,7 @@ CREATE TABLE `credential` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`,`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,7 +197,7 @@ CREATE TABLE `receptionist` (
   `role` text,
   `cred_id` int(11) DEFAULT NULL,
   KEY `cred_id` (`cred_id`),
-  CONSTRAINT `receptionist_ibfk_1` FOREIGN KEY (`cred_id`) REFERENCES `credential` (`id`)
+  CONSTRAINT `receptionist_ibfk_1` FOREIGN KEY (`cred_id`) REFERENCES `credential` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
