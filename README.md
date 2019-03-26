@@ -85,3 +85,17 @@ Back-end server + database implementation for SENG 300 Project
         * name: The doctor's name
         * is_surgeon: Whether the doctor is a surgeon or not
         * department: to which department the doctor belongs
+
++ editUser/addDoctor
+- localhost:{port}/com.ach_manager/api/editUser/addDoctor?username=X&password=Y&phone=Z&name=ABC&departmentID=G&isSurgeon=boolValue
+    - Returns a JSONObject containing a message to be displayed on screen after adding a doctor 
+    - Take the following parameters in the order:
+        * username: username to be used by doctor for logging in
+        * password: String representing password for doctor's login
+        * phone: Phone number of doctor
+        * name: Name of doctor
+        * departmentID: integer for department ID of doctor
+        * isSurgeon: boolean indicating whether doctor is a surgeon
+     - Returns the following:
+        * result: A JSONOBject containing:
+            + message that can be any one of the following strings: {Doctor was successfully added, An unknown error occured, A doctor with the entered information already exists}
