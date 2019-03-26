@@ -16,14 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `SENG300_Hospital`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `SENG300_Hospital` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-
-USE `SENG300_Hospital`;
-
---
 -- Table structure for table `administrator`
 --
 
@@ -103,7 +95,7 @@ CREATE TABLE `credential` (
 
 LOCK TABLES `credential` WRITE;
 /*!40000 ALTER TABLE `credential` DISABLE KEYS */;
-INSERT INTO `credential` VALUES (1,'AndyPants','pass1','111-222-3344','Andy A. Anderson'),(2,'Alphyboi','pass2','123-123-1234','Alpha A. Alphonzo'),(3,'bill_hilly','password','987-654-3210','Bill B. Billsner'),(4,'bobbin','pass_word','291-657-2534','Bob B. Bobbin'),(5,'grassybryar','pass_wordy','834-526-7462','Bryan B. Briar'),(6,'no_one_cathy','im_good_cat','111-234-0987','Cathy C. Catherine'),(7,'no_one_cathy_really','im_better_cat','222-432-5432','Catherine C. Cathy'),(8,'admin_01','a_good_password','403-434-5678','Urist AdminPants');
+INSERT INTO `credential` VALUES (1,'AndyPants','pass1','111-222-3344','Andy A. Anderson'),(2,'Alphyboi','pass2','123-123-1234','Alpha A. Alphonzo'),(3,'bill_hilly','password','987-654-3210','Bill B. Billsner'),(4,'bobbin','pass_word','291-657-2534','Bob B. Bobbin'),(5,'grassybryar','pass_wordy','834-526-7462','Bryan B. Briar'),(6,'no_one_cathy','im_good_cat','111-234-0987','Cathy C. Catherine'),(7,'no_one_cathy_really','im_better_cat','222-432-5432','Catherine C. Cathy'),(8,'admin','admin','403-434-5678','Urist AdminPants');
 /*!40000 ALTER TABLE `credential` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,10 +202,6 @@ LOCK TABLES `receptionist` WRITE;
 INSERT INTO `receptionist` VALUES ('Head Receptionist',8);
 /*!40000 ALTER TABLE `receptionist` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'SENG300_Hospital'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -224,4 +212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-17 22:01:06
+-- Dump completed on 2019-03-25 18:42:40

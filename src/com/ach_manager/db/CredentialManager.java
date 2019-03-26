@@ -68,9 +68,12 @@ public class CredentialManager {
     }
     
     /**
-     * Adds a new credential set to the database
-     * @return The id number of the new credential
-     *  Returns -1 if the credentials were unable to be added (duplication error)
+     * Add a new credential to the database
+     * @param user Username
+     * @param pass Password
+     * @param phone Phone number
+     * @param name Name of the user
+     * @return 
      */
     public int addCredentials(String user, String pass, String phone, String name) {
         // Initialize Connection
@@ -116,6 +119,12 @@ public class CredentialManager {
         return cred_id;
     }
     
+    /**
+     * Drop a user from the database
+     * @param cred_id The ID of the user
+     * @return A ProgramCode describing the outcome of the function
+     * @throws SQLException 
+     */
     ProgramCode dropCredentials(int cred_id) throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
@@ -125,7 +134,7 @@ public class CredentialManager {
         ProgramCode code = ProgramCode.UNKNOWN_ERROR;
         // Query string
         String query = "DELETE FROM credential WHERE "
-                + "id = '" + cred_id + "';";
+                + "id = " + cred_id + ";";
         try {
             // Attempt to drop the designated value
             stmt = con.createStatement();

@@ -12,6 +12,7 @@ public class TestScript {
     private final AppointmentManager app_man = new AppointmentManager();
     private final DoctorManager doc_man = new DoctorManager();
     private final CredentialManager cred_man = new CredentialManager();
+    private final PatientManager pat_man = new PatientManager();
     
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
@@ -32,6 +33,11 @@ public class TestScript {
             test_json.put("addCredential (Valid)", cred_val);
             test_json.put("dropCredential (Valid)", cred_man.dropCredentials(cred_val));
             test_json.put("dropDoctor (Invalid)", doc_man.dropDoctor(20));
+            int pat_val = pat_man.addPatient("TestPat", 1, "135-763-9567");
+            test_json.put("addPatient (Valid)", pat_val);
+            test_json.put("getPatient (Valid)", pat_man.getPatient(pat_val));
+            test_json.put("dropPatient (Valid)", pat_man.dropPatient(pat_val));
+            test_json.put("getAllPatients", pat_man.getAllPatients());
         } catch (SQLException e) {
             test_json = null; 
             e.printStackTrace();
