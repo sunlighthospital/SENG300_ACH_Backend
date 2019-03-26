@@ -45,7 +45,7 @@ public class editDoctorSchedule{
                 result.put("Message", "Appointment was successfully added");
             }
             else if(status == ProgramCode.UNKNOWN_ERROR){ 
-                result.put("Message", "c");
+                result.put("Message", "An unknown error occured");
             }
             else if(status == ProgramCode.DUPLICATE_ENTRY){ 
                 result.put("Message", "An appointment with the entered information already exists");
