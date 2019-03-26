@@ -54,7 +54,7 @@ Back-end server + database implementation for SENG 300 Project
         * password; Password for the user
     - Returns the following:
         * loginValid: True if the user exists in database and matches a known user, false otherwise (user does not exist or incorrect credentials entered)
-        * role: Admin or Receptionist
+        * role: Admin or Receptionist or "User does not exist"
 + editDoctorSchedule/add
     - localhost:{port}/com.ach_manager/api/editDoctorSchedule/add?title="enterTitle"&description="enterDecription"&time="01:03:54"&duration="02:03:00"&patientID=X&doctorID=Y
     - Returns a JSONObject containing a message to be displayed on screen after adding a new appointment 
