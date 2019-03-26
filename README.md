@@ -87,7 +87,7 @@ Back-end server + database implementation for SENG 300 Project
         * department: to which department the doctor belongs
 
 + editUser/addDoctor
-- localhost:{port}/com.ach_manager/api/editUser/addDoctor?username=X&password=Y&phone=Z&name=ABC&departmentID=G&isSurgeon=boolValue
+    - localhost:{port}/com.ach_manager/api/editUser/addDoctor?username=X&password=Y&phone=Z&name=ABC&departmentID=G&isSurgeon=boolValue
     - Returns a JSONObject containing a message to be displayed on screen after adding a doctor 
     - Take the following parameters in the order:
         * username: username to be used by doctor for logging in
