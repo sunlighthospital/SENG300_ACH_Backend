@@ -37,6 +37,7 @@ public class LoginAPI {
             //if user exists then login valid/true
             if(user_details.isNull("name")){  
                 result.put("loginValid", false);
+                result.put("role", "User does not exist");
                 return result; 
             }
             else if(user_details.has("admin_role")){  
