@@ -106,9 +106,9 @@ public class DoctorManager {
     
     /**
      * Update a person's credentials to give them doctor privileges w/ a given department
-     * @param cred_id
-     * @param is_surgeon
-     * @param dep_id
+     * @param cred_id ID# of the person to add privileges too
+     * @param is_surgeon If they should be marked as a surgeon or not
+     * @param dep_id What department they should be part of (its ID#)
      * @return The result of the function, as a ProgramCode
      * @see com.ach_manager.db.Utils
      * @throws SQLException 
@@ -119,9 +119,12 @@ public class DoctorManager {
         // Statement of Intent
         Statement stmt = null;
         try {
+            // Attempt the query
+            stmt = con.createStatement();
             String query = "INSERT INTO `doctor`(`cred_id`,`dep_id`,`is_surgeon`) VALUES "
                     + "('" + cred_id + "','" + dep_id + "','" + is_surgeon + "');";
             int vals = stmt.executeUpdate(query);
+            // Based on results, return program code
             if (vals == 1) {
                 return ProgramCode.SUCCESS;
             } else if (vals == 0) {

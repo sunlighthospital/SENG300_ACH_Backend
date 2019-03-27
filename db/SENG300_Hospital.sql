@@ -86,7 +86,7 @@ CREATE TABLE `credential` (
   `phone` varchar(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`,`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `credential` (
 
 LOCK TABLES `credential` WRITE;
 /*!40000 ALTER TABLE `credential` DISABLE KEYS */;
-INSERT INTO `credential` VALUES (1,'AndyPants','pass1','111-222-3344','Andy A. Anderson'),(2,'Alphyboi','pass2','123-123-1234','Alpha A. Alphonzo'),(3,'bill_hilly','password','987-654-3210','Bill B. Billsner'),(4,'bobbin','pass_word','291-657-2534','Bob B. Bobbin'),(5,'grassybryar','pass_wordy','834-526-7462','Bryan B. Briar'),(6,'no_one_cathy','im_good_cat','111-234-0987','Cathy C. Catherine'),(7,'no_one_cathy_really','im_better_cat','222-432-5432','Catherine C. Cathy'),(8,'admin','admin','403-434-5678','Urist AdminPants');
+INSERT INTO `credential` VALUES (1,'AndyPants','pass1','111-222-3344','Andy A. Anderson'),(2,'Alphyboi','pass2','123-123-1234','Alpha A. Alphonzo'),(3,'bill_hilly','password','987-654-3210','Bill B. Billsner'),(4,'bobbin','pass_word','291-657-2534','Bob B. Bobbin'),(5,'grassybryar','pass_wordy','834-526-7462','Bryan B. Briar'),(6,'no_one_cathy','im_good_cat','111-234-0987','Cathy C. Catherine'),(7,'no_one_cathy_really','im_better_cat','222-432-5432','Catherine C. Cathy'),(8,'admin','admin','403-434-5678','Urist AdminPants'),(11,'recep','recep','146-859-3476','Uriel McReceptionPants');
 /*!40000 ALTER TABLE `credential` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +165,7 @@ CREATE TABLE `patient` (
   `sex` tinyint(1) DEFAULT NULL,
   `phone` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,4 +212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-25 18:42:40
+-- Dump completed on 2019-03-27 16:15:44
