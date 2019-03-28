@@ -99,3 +99,15 @@ Back-end server + database implementation for SENG 300 Project
      - Returns the following:
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Doctor was successfully added, An unknown error occured, A doctor with the entered information already exists}
+            
++ editUser/addReceptionist
+    - localhost:{port}/com.ach_manager/api/editUser/addReceptionist?username=X&password=Y&phone=Z&name=ABC&role=abc
+    - Take the following parameters in the order:
+        * username: username to be used by doctor for logging in
+        * password: String representing password for doctor's login
+        * phone: Phone number of doctor
+        * name: Name of doctor
+        * role: role of user
+     - Returns the following:
+        * result: A JSONOBject containing:
+            + message that can be any one of the following strings: {Receptionist was successfully added, An unknown error occured, A receptionist with the entered information already exists}
