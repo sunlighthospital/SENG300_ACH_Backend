@@ -112,7 +112,7 @@ Back-end server + database implementation for SENG 300 Project
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Receptionist was successfully added, An unknown error occured, A receptionist with the entered information already exists}
 
-+doctor/getAppointments
++ doctor/getAppointments
     - localhost:{port}/com.ach_manager/api/doctor/getAppointments?id=4
     - Take the following parameters in the order:
         * id: Doctor ID
