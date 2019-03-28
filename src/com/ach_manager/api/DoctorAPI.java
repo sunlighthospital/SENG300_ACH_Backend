@@ -5,10 +5,9 @@
  */
 package com.ach_manager.api;
 
+import com.ach_manager.db.AppointmentManager;
 import com.ach_manager.db.DoctorManager;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import org.json.JSONObject;
 
@@ -35,4 +34,26 @@ public class DoctorAPI {
         }
         return new JSONObject().toString();
     }
+    
+    @Path("/getAppointments")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAppointmentByDocID(
+            @QueryParam("id") int id){
+        
+        try{
+            JSONObject result = new JSONObject();
+            AppointmentManager apptManager = new AppointmentManager();
+            result = apptManager.getDocAppointmentsByDocID(id);
+             return result.toString();
+        }
+
+        catch(Exception e)
+        {
+            JSONObject result = new JSONObject();
+            result.put("Message","An error occurred");
+            return result.toString();
+        }
+    }
+    
 }
