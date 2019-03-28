@@ -25,8 +25,8 @@ public class LoginAPI {
     // Checks if login is valid by verifying username and password
     // Returns: boolean (true for valid login and false otherwise)
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject verifyLogin(
+    @Produces({MediaType.APPLICATION_JSON})
+    public String verifyLogin(
         @QueryParam("username") String username, 
         @QueryParam("password") String password){
     
@@ -38,17 +38,17 @@ public class LoginAPI {
             if(user_details.isNull("name")){  
                 result.put("loginValid", false);
                 result.put("role", "User does not exist");
-                return result; 
+                return result.toString(); 
             }
             else if(user_details.has("admin_role")){  
                 result.put("loginValid", true);
                 result.put("role", "Admin");
-                return result; 
+                return result.toString(); 
             }
             else if(user_details.has("reception_role")){  
                 result.put("loginValid", true);
                 result.put("role", "Receptionist");
-                return result; 
+                return result.toString();  
             } 
         }
         catch (Exception e){

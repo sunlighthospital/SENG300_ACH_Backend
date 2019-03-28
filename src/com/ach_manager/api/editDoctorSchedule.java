@@ -29,16 +29,16 @@ public class editDoctorSchedule{
     @Path("/add")
     // Returns:
     //	JSONObject containing a message to be displayed on screen after adding a new appointment 
-    public JSONObject addAppt(
+    public String addAppt(
             @QueryParam("title") String Title,              // Title of appointment
             @QueryParam("description") String description,  // Description of appointment
             @QueryParam("time") String time,                // Time of appointment
             @QueryParam("duration") int duration,           // duration of appointment
             @QueryParam("patientID")int patientID,         // Patient's ID
             @QueryParam("doctorID") int doc_id){           // Doctor's ID
-        
+
+            JSONObject result = new JSONObject();        
         try {
-            JSONObject result = new JSONObject();
             // Status contains result of adding a new appointment to the database
             Utils.ProgramCode status = apptManager.addAppointment(Title, description,time,duration,patientID,doc_id);
             if(status == ProgramCode.SUCCESS){
@@ -50,24 +50,26 @@ public class editDoctorSchedule{
             else if(status == ProgramCode.DUPLICATE_ENTRY){ 
                 result.put("Message", "An appointment with the entered information already exists");
             }
-            return result;
+            return result.toString();
         }
         catch (Exception e){
+            result.put("Message","An error occured");
+            return result.toString();
         }
-        return null;
     }
     
     // Following path is for dropping appointment and subsequently updating the database
     @Path("/drop")
     // Returns:
     //	JSONObject containing a message to be displayed on screen after dropping appointment 
-    public JSONObject dropAppt(
+    public String dropAppt(
              @QueryParam("patientID") int patientID,       // ID of patient dropping the appointment
              @QueryParam("doctorID") int docID,            // Doctor's ID 
              @QueryParam("time") String time){              // Time of appointment
                
+        JSONObject result = new JSONObject();
+
         try {
-            JSONObject result = new JSONObject();
             // Status contains result of dropping the appointment and updating the database
             Utils.ProgramCode status = apptManager.dropAppointment(patientID, docID,time);
             if(status == ProgramCode.SUCCESS){
@@ -79,11 +81,12 @@ public class editDoctorSchedule{
             else if(status == ProgramCode.NO_ENTRY_FOUND){ 
                 result.put("Message", "An appointment with the entered information does not exist");
             }
-            return result;
+            return result.toString();
         }
         catch (Exception e){
+            result.put("Message","An error occured");
+            return result.toString();   
         }
-        return null;
         
     }
 }
