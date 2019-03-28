@@ -10,11 +10,13 @@ public class AppointmentManager {
     /**
      * Adds an appointment to the 
      * @param id Doctor ID to search for the appointments under
-     * @return A JSONObject containing a JSONObjectList "schedule", with elements containing the following parameters:
+     * @return A JSONObject containing a JSONObjectList "schedule", with elements containing the following:
      *  title: Title of the appointment
      *  description: Description of the appointment
      *  time: Time the appointment is schedule to take place
      *  duration: Expected duration of the appointment (in minutes)
+     *  patient_id: Patient ID associated with this appointment (if any)
+     * Returns null on error
      * @throws java.sql.SQLException
     **/
     public JSONObject getDocAppointmentsByDocID(int id) throws SQLException {
@@ -40,6 +42,7 @@ public class AppointmentManager {
                 jo.put("description", rs.getString("desc"));
                 jo.put("time", rs.getTimestamp("time").toString());
                 jo.put("duration", rs.getInt("duration"));
+                jo.put("patient_id", rs.getInt("pat_id"));
                 sched_array.put(jo);
             }
             // Place all of the data into the JSON object
@@ -60,13 +63,13 @@ public class AppointmentManager {
      * Gets all appointments associated with a doctor's name
      * Defaults to the first entry if doctor's with identical names exist
      * @param name The name of the doctor to search for
-     * @return A JSONObject containing a JSONObjectList "schedule":
-     *  Each element contains the following parameters:
-     *      title: Title of the appointment
-     *      description: Description of the appointment
-     *      time: Time the appointment is schedule to take place
-     *      duration: Expected duration of the appointment (in minutes)
-     *      Returns null on error
+     * @return A JSONObject containing a JSONObjectList "schedule", with each element containing the following:
+     *  title: Title of the appointment
+     *  description: Description of the appointment
+     *  time: Time the appointment is schedule to take place
+     *  duration: Expected duration of the appointment (in minutes)
+     *  patient_id: Patient ID associated with this appointment (if any)
+     * Returns null on error
      * @throws java.sql.SQLException
     **/
     public JSONObject getDocAppointmentsByDocName(String name) throws SQLException {
@@ -100,7 +103,7 @@ public class AppointmentManager {
     }
 
     /**
-     * Adds an appointment to the 
+     * Adds an appointment to the system
      * @param title Title to give the appointment 
      * @param description Description of the appointment (why its being done)
      * @param time Time the appointment starts (yyyy-MM-dd hh:mm:ss)
