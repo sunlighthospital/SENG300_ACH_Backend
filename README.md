@@ -111,3 +111,16 @@ Back-end server + database implementation for SENG 300 Project
      - Returns the following:
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Receptionist was successfully added, An unknown error occured, A receptionist with the entered information already exists}
+
++doctor/getAppointments
+    - localhost:{port}/com.ach_manager/api/doctor/getAppointments?id=4
+    - Take the following parameters in the order:
+        * id: Doctor ID
+     - Returns the following:
+        * result: A JSONOBject containing:
+            + A JSONObject containing a JSONObjectList "schedule", with elements containing the following:
+            + title: Title of the appointment
+            + description: Description of the appointment
+            + time: Time the appointment is schedule to take place
+            + duration: Expected duration of the appointment (in minutes)
+            + patient_id: Patient ID associated with this appointment (if any)
