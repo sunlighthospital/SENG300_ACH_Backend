@@ -117,7 +117,7 @@ Back-end server + database implementation for SENG 300 Project
     - Take the following parameters in the order:
         * id: Doctor ID
      - Returns the following:
-        * result: A JSONOBject containing:
+        * result: 
             + A JSONObject containing a JSONObjectList "schedule", with elements containing the following:
             + title: Title of the appointment
             + description: Description of the appointment
