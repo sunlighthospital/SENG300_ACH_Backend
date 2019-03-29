@@ -35,21 +35,21 @@ public class LoginAPI {
             // CheckCredentials checks whether username and password exist in database
             JSONObject user_details = loginManager.checkCredentials(username, password);
             //if user exists then login valid/true
-            if(user_details.isNull("name")){  
+            if(user_details.isNull("name")){
                 result.put("loginValid", false);
                 result.put("role", "User does not exist");
                 return result.toString(); 
             }
-            else if(user_details.has("admin_role")){  
+            else if(user_details.has("admin_role")){
                 result.put("loginValid", true);
                 result.put("role", "Admin");
                 return result.toString(); 
             }
-            else if(user_details.has("reception_role")){  
+            else if(user_details.has("reception_role")){
                 result.put("loginValid", true);
                 result.put("role", "Receptionist");
-                return result.toString();  
-            } 
+                return result.toString();
+            }
         }
         catch (Exception e){
         }

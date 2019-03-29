@@ -122,7 +122,7 @@ public class DoctorManager {
             // Attempt the query
             stmt = con.createStatement();
             String query = "INSERT INTO `doctor`(`cred_id`,`dep_id`,`is_surgeon`) VALUES "
-                    + "('" + cred_id + "','" + dep_id + "','" + is_surgeon + "');";
+                    + "('" + cred_id + "','" + dep_id + "'," + is_surgeon + ");";
             int vals = stmt.executeUpdate(query);
             // Based on results, return program code
             if (vals == 1) {
