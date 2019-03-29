@@ -55,7 +55,25 @@ public class EditUser{
         }
 
     }
-    
+    /**
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON })
+    @Path("/removeDoctor")
+    public String removeDoctor(
+            @QueryParam("username") String user,       
+            @QueryParam("password") String password){
+        
+         try {
+             JSONObject result = new JSONObject();
+             CredentialManager userManager = new CredentialManager();
+             JSONObject cred_id = userManager.checkCredentials(user,password);
+             if(cred_id.has("name"))
+             {
+                 
+             }
+             
+    }
+    **/
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/addReceptionist")
@@ -65,15 +83,14 @@ public class EditUser{
             @QueryParam("username") String user,       
             @QueryParam("password") String password,  
             @QueryParam("phone") String phone,        
-            @QueryParam("name") String name,
-            @QueryParam("role") String role){          
+            @QueryParam("name") String name){          
         
         try {
              JSONObject result = new JSONObject();
              CredentialManager userManager = new CredentialManager();
              int cred_id = userManager.addCredentials(user,password,phone,name);
-             ReceptionistManager drecepManager = new ReceptionistManager();
-             Utils.ProgramCode status = drecepManager.addReceptionist(cred_id, role);
+             ReceptionistManager recepManager = new ReceptionistManager();
+             Utils.ProgramCode status = recepManager.addReceptionist(cred_id, "");
              if(status == Utils.ProgramCode.SUCCESS){
                 result.put("Message", "Receptionist was successfully added");
             }
