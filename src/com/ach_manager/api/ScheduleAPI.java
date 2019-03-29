@@ -74,7 +74,7 @@ public class ScheduleAPI {
                     jo.put("description", init_ja.getJSONObject(i).get("description"));
                     jo.put("time", init_ja.getJSONObject(i).get("time"));
                     jo.put("duration", init_ja.getJSONObject(i).get("duration"));
-                    fin_ja.put(cur_date);
+                    fin_ja.put(jo);
                 }
                 i++;
             }
