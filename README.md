@@ -68,8 +68,8 @@ Back-end server + database implementation for SENG 300 Project
      - Returns the following:
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Appointment was successfully added, Appointment was successfully added, An appointment with the entered information already exists}
-+ editDoctorSchedule/drop
-    - localhost:{port}/com.ach_manager/api/editDoctorSchedule/drop?patientID=X&doctorID=Y&time="02:03:00"
++ editSchedule/drop
+    - localhost:{port}/com.ach_manager/api/editSchedule/drop?patientID=X&doctorID=Y&time="02:03:00"
     - Returns a JSONObject containing a message to be displayed on screen after dropping an appointment 
     - Take the following parameters in the order:
         * patientID: Patient's ID
@@ -101,13 +101,12 @@ Back-end server + database implementation for SENG 300 Project
             + message that can be any one of the following strings: {Doctor was successfully added, An unknown error occured, A doctor with the entered information already exists}
             
 + editUser/addReceptionist
-    - localhost:{port}/com.ach_manager/api/editUser/addReceptionist?username=X&password=Y&phone=Z&name=ABC&role=abc
+    - localhost:{port}/com.ach_manager/api/editUser/addReceptionist?username=X&password=Y&phone=Z&name=ABC
     - Take the following parameters in the order:
         * username: username to be used by doctor for logging in
         * password: String representing password for doctor's login
         * phone: Phone number of doctor
         * name: Name of doctor
-        * role: role of user
      - Returns the following:
         * result: A JSONOBject containing:
             + message that can be any one of the following strings: {Receptionist was successfully added, An unknown error occured, A receptionist with the entered information already exists}
