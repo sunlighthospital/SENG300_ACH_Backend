@@ -40,14 +40,18 @@ public class LoginAPI {
                 result.put("role", "User does not exist");
                 return result.toString(); 
             }
-            else if(user_details.has("admin_role")){
+            else if(!user_details.isNull("admin_role")){
                 result.put("loginValid", true);
                 result.put("role", "Admin");
                 return result.toString(); 
             }
-            else if(user_details.has("reception_role")){
+            else if(!user_details.isNull("reception_role")){
                 result.put("loginValid", true);
                 result.put("role", "Receptionist");
+                return result.toString();
+            } else {
+                result.put("loginValid", true);
+                result.put("role", "Doctor");
                 return result.toString();
             }
         }
