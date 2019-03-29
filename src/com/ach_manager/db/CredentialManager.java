@@ -73,7 +73,7 @@ public class CredentialManager {
      * @param pass Password
      * @param phone Phone number
      * @param name Name of the user
-     * @return cred_id
+     * @return an integer representing the id of the new credential
      */
     public int addCredentials(String user, String pass, String phone, String name) {
         // Initialize Connection
