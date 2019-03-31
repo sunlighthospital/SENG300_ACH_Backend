@@ -61,6 +61,8 @@ public class editDoctorSchedule{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     // Following path is for dropping appointment and subsequently updating the database
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/drop")
     // Returns:
     //	JSONObject containing a message to be displayed on screen after dropping appointment 
