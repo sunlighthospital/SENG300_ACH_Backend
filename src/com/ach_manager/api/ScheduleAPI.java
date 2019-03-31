@@ -26,6 +26,7 @@ public class ScheduleAPI {
         Date date = null;
         try {
             date = format.parse(val);
+            date.setTime(date.getTime() - 3600*1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -74,7 +75,7 @@ public class ScheduleAPI {
                     jo.put("description", init_ja.getJSONObject(i).get("description"));
                     jo.put("time", init_ja.getJSONObject(i).get("time"));
                     jo.put("duration", init_ja.getJSONObject(i).get("duration"));
-                    jo.put("patient_id", init_ja.getJSONObject(i).get("patient_id"));
+                    jo.put("patient_id", init_ja.getJSONObject(i).get("patientID"));
                     fin_ja.put(jo);
                 }
                 i++;
