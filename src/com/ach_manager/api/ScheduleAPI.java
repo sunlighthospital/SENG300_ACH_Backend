@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import org.json.*;
 
 import com.ach_manager.db.*;
+import java.sql.Timestamp;
 
 // Path by which to access this classes api
 @Path("/schedule")
@@ -26,7 +27,6 @@ public class ScheduleAPI {
         Date date = null;
         try {
             date = format.parse(val);
-            date.setTime(date.getTime() - 3600*1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -61,19 +61,20 @@ public class ScheduleAPI {
             JSONArray fin_ja = new JSONArray();
             // Set up loop managing variables
             int i = 0;
-            Date cur_date = convertDateString(init_ja.getJSONObject(i).get("time").toString());
             Date start_date = convertDateString(start_string);
             Date end_date = convertDateString(end_string);
             // Keep adding appointments as long as appointments remain to be tested
             while ( (i < init_ja.length()) ) {
-                cur_date = convertDateString(init_ja.getJSONObject(i).get("time").toString());
+                Date cur_date = convertDateString(init_ja.getJSONObject(i).get("time").toString());
+                cur_date.setTime(cur_date.getTime() - 3600 * 1000);
                 // Check to make sure the dates are in the appropriate bounds
                 if ( (cur_date.compareTo(start_date) >= 0) 
                         && (cur_date.compareTo(end_date) < 0) ) {
                     JSONObject jo = new JSONObject();
                     jo.put("title", init_ja.getJSONObject(i).get("title"));
                     jo.put("description", init_ja.getJSONObject(i).get("description"));
-                    jo.put("time", init_ja.getJSONObject(i).get("time"));
+                    Timestamp ts = new Timestamp(cur_date.getTime());
+                    jo.put("time", ts.toString());
                     jo.put("duration", init_ja.getJSONObject(i).get("duration"));
                     jo.put("patientID", init_ja.getJSONObject(i).get("patientID"));
                     fin_ja.put(jo);
