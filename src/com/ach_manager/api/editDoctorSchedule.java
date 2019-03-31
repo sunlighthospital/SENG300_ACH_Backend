@@ -58,6 +58,8 @@ public class editDoctorSchedule{
         }
     }
     
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     // Following path is for dropping appointment and subsequently updating the database
     @Path("/drop")
     // Returns:
