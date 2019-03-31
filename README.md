@@ -25,16 +25,6 @@ Back-end server + database implementation for SENG 300 Project
 ### Currently implemented URL hooks
 + test:
     - Returns a JSON file with results for each available database call. No use to front-end coding
-    - Returned Values (All have the result for the function sharing their respective name):
-        * getAppointments;
-        * getAllDoctors (Full)
-        * getAllDoctors (Department)
-        * checkCredentials (Valid)
-        * checkCredentials (Invalid)
-        * addAppointment (Valid)
-        * addAppointment (Redundant)
-        * dropAppointment (Valid)
-        * dropAppointment (Missing)
 + schedule/bounded
     - Returns a JSON containing all scheduled appointments for the doctor between the two provided dates
     - Takes the following parameters:
@@ -47,6 +37,7 @@ Back-end server + database implementation for SENG 300 Project
             + description: Description of the appointment
             + time: Time at which the appointment occurs
             + duration: Expected duration (in minutes) of the appointment
+            + patient_id: The patient ID for this appointment (none if the appointment is time off)
 + loginUser
     - localhost:{port}/com.ach_manager/api/loginUser?username="userName"&password="password"
     - Take the following parameters:
