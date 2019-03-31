@@ -42,7 +42,7 @@ public class AppointmentManager {
                 jo.put("description", rs.getString("desc"));
                 jo.put("time", rs.getTimestamp("time").toString());
                 jo.put("duration", rs.getInt("duration"));
-                jo.put("patient_id", rs.getInt("pat_id"));
+                jo.put("patientID", rs.getInt("pat_id"));
                 sched_array.put(jo);
             }
             // Place all of the data into the JSON object

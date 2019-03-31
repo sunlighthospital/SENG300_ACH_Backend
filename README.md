@@ -37,7 +37,7 @@ Back-end server + database implementation for SENG 300 Project
             + description: Description of the appointment
             + time: Time at which the appointment occurs
             + duration: Expected duration (in minutes) of the appointment
-            + patient_id: The patient ID for this appointment (none if the appointment is time off)
+            + patientID: The patient ID for this appointment (none if the appointment is for time off)
 + loginUser
     - localhost:{port}/com.ach_manager/api/loginUser?username="userName"&password="password"
     - Take the following parameters:
