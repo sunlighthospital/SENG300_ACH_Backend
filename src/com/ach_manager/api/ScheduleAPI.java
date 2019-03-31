@@ -75,7 +75,7 @@ public class ScheduleAPI {
                     jo.put("description", init_ja.getJSONObject(i).get("description"));
                     jo.put("time", init_ja.getJSONObject(i).get("time"));
                     jo.put("duration", init_ja.getJSONObject(i).get("duration"));
-                    jo.put("patient_id", init_ja.getJSONObject(i).get("patientID"));
+                    jo.put("patientID", init_ja.getJSONObject(i).get("patientID"));
                     fin_ja.put(jo);
                 }
                 i++;
