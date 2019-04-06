@@ -23,6 +23,7 @@ public class CredentialManager {
      * @param user The user's username
      * @param pass The user's password
      * @return A JSONObject containing the following parameters:
+     *  id: The ID number of the credential found
      *  name: Name of the user (non-existent if credentials were not found)
      *  department: Department of the doctor, if they are a doctor
      *  reception_role: Role of the user in reception, if they are a receptionist
@@ -38,7 +39,7 @@ public class CredentialManager {
         // Holds results from query
         ResultSet rs = null;
         // Query assembly (mySQL format)
-        String query = "SELECT c.name, p.name AS dep_name, r.role as rec_role, a.role as adm_role "
+        String query = "SELECT c.id, c.name, p.name AS dep_name, r.role as rec_role, a.role as adm_role "
                 + "FROM credential c "
                 + "LEFT JOIN doctor d ON c.id = d.cred_id "
                 + "LEFT JOIN department p ON d.dep_id = p.id "
@@ -52,6 +53,7 @@ public class CredentialManager {
             rs = stmt.executeQuery(query);
             // Add the results to the json object parameters
             if (rs.next()) {
+                results.put("id", rs.getInt("id"));
                 results.put("name", rs.getString("name"));
                 results.put("department", rs.getString("dep_name"));
                 results.put("reception_role", rs.getString("rec_role"));
