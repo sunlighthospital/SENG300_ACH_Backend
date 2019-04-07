@@ -120,8 +120,8 @@ Back-end server + database implementation for SENG 300 Project
     - Fetches all receptionists contained within the database
         * @return A JSON object containing details about all receptionists in the system (in the "receps" tag)
         *  Each entry contains the following elements:
-        *      id: The receptionists credential id
-        *      role: The receptionists role
+        *  id: The receptionists credential id
+        *  role: The receptionists role
         *  Returns message ("An  error occured") on error
         
 + editUser/getAllUsers
