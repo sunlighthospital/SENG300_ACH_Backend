@@ -103,7 +103,7 @@ public class EditUser{
              CredentialManager userManager = new CredentialManager();
              int cred_id = userManager.addCredentials(user,password,phone,name);
              ReceptionistManager recepManager = new ReceptionistManager();
-             Utils.ProgramCode status = recepManager.addReceptionist(cred_id, "");
+             Utils.ProgramCode status = recepManager.addReceptionist(cred_id, "General Reception (WIP)");
              if(status == Utils.ProgramCode.SUCCESS){
                 result.put("Message", "Receptionist was successfully added");
             }
