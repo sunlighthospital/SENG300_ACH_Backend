@@ -181,7 +181,7 @@ public class CredentialManager {
      * @return A ProgramCode describing the outcome of the function
      * @throws SQLException 
      */
-    ProgramCode dropCredentials(int cred_id) throws SQLException {
+    public ProgramCode dropCredentials(int cred_id) throws SQLException {
         // Initialize Connection
         Connection con = ConnectionManager.getConnection();
         // Holds results from query
