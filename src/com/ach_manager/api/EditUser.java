@@ -55,7 +55,7 @@ public class EditUser{
         }
 
     }
-    /**
+/**
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/removeDoctor")
@@ -69,11 +69,21 @@ public class EditUser{
              JSONObject cred_id = userManager.checkCredentials(user,password);
              if(cred_id.has("name"))
              {
+                 Utils.ProgramCode status = userManager.dropCredentials(cred_id);
+                 
                  
              }
+         }
              
+        catch (Exception e){
+            JSONObject result = new JSONObject();
+            result.put("Message", "An  error occured");
+            return result.toString();
+        }  
+         
     }
     **/
+
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/addReceptionist")
@@ -102,6 +112,33 @@ public class EditUser{
             }
             return result.toString();
         }
+
+        catch (Exception e){
+            JSONObject result = new JSONObject();
+            result.put("Message", "An  error occured");
+            return result.toString();
+        }
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllReceptionists")
+    /**
+     * Fetches all receptionists contained within the database
+     * @return A JSON object containing details about all receptionists in the system (in the "receps" tag)
+     *  Each entry contains the following elements:
+     *      id: The receptionists credential id
+     *      role: The receptionists role
+     *  Returns message on error
+     */
+    public String getAllRecep(){
+        
+        try {
+            ReceptionistManager recepMan = new ReceptionistManager();
+            JSONObject result = new JSONObject();
+            result = recepMan.getAllReceptionists();
+            return result.toString();
+            }
 
         catch (Exception e){
             JSONObject result = new JSONObject();
