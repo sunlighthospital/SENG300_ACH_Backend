@@ -123,3 +123,20 @@ Back-end server + database implementation for SENG 300 Project
         *      id: The receptionists credential id
         *      role: The receptionists role
         *  Returns message ("An  error occured") on error
+        
++ editUser/getAllUsers
+    - localhost:{port}/com.ach_manager/api/editUser/getAllUsers
+    - Gets all credentials in the system (for admin use only)
+        * @return A JSONObject containing a JSONArray of objects (labeled "credentials") w/ the following parameters:
+        *  id: The ID number of the credential found
+        *  name: Name of the user (non-existent if credentials were not found)
+        *  department: Department of the doctor, if they are a doctor
+        *  reception_role: Role of the user in reception, if they are a receptionist
+        *  admin_role: Role of the user in administration, if they are an administrator
+
++ editUser/removeUser
+    - localhost:{port}/com.ach_manager/api/editUser/removeUser?id="cred_id"
+        * cred_id is the credential ID of the user to be removed
+        * returns Returns the following:
+        * result: A JSONOBject containing:
+            + message that can be any one of the following strings: {User was successfully removed, An unknown error occured, A user with the entered information does not exist}
