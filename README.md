@@ -114,3 +114,12 @@ Back-end server + database implementation for SENG 300 Project
             + time: Time the appointment is schedule to take place
             + duration: Expected duration of the appointment (in minutes)
             + patient_id: Patient ID associated with this appointment (if any)
+            
++ editUser/getAllReceptionists
+    - localhost:{port}/com.ach_manager/api/editUser/getAllReceptionists
+    - Fetches all receptionists contained within the database
+        * @return A JSON object containing details about all receptionists in the system (in the "receps" tag)
+        *  Each entry contains the following elements:
+        *      id: The receptionists credential id
+        *      role: The receptionists role
+        *  Returns message ("An  error occured") on error
