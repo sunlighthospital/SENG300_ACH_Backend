@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.json.JSONArray;
 
 import org.json.JSONObject;
 
@@ -59,6 +60,59 @@ public class CredentialManager {
                 results.put("reception_role", rs.getString("rec_role"));
                 results.put("admin_role", rs.getString("adm_role"));
             }
+            // Close the connections to avoid memory leaks
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            results = null;
+            System.out.println(e);
+        }
+        return results;
+    }
+    
+    /**
+     * Gets all credentials in the system (for admin use only)
+     * @return A JSONObject containing a JSONArray of objects (labeled "credentials") w/ the following parameters:
+     *  id: The ID number of the credential found
+     *  name: Name of the user (non-existent if credentials were not found)
+     *  department: Department of the doctor, if they are a doctor
+     *  reception_role: Role of the user in reception, if they are a receptionist
+     *  admin_role: Role of the user in administration, if they are an administrator
+     */
+    public JSONObject getAllCredentials() {
+        // Initialize Connection
+        Connection con = ConnectionManager.getConnection();
+        // Holds results from query
+        Statement stmt = null;
+        // JSON representation of the schedule
+        JSONObject results = new JSONObject();
+        // Holds results from query
+        ResultSet rs = null;
+        // Query assembly (mySQL format)
+        String query = "SELECT c.id, c.username, c.password, c.name, p.name AS dep_name, r.role as rec_role, a.role as adm_role "
+                + "FROM credential c "
+                + "LEFT JOIN doctor d ON c.id = d.cred_id "
+                + "LEFT JOIN department p ON d.dep_id = p.id "
+                + "LEFT JOIN receptionist r ON c.id = r.cred_id "
+                + "LEFT JOIN administrator a ON c.id = a.cred_id;";
+        try {
+            // Attempt the query
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            // Add the results to the json object parameters
+            JSONArray arr = new JSONArray();
+            while (rs.next()) {
+                JSONObject obj = new JSONObject();
+                obj.put("id", rs.getInt("id"));
+                obj.put("username", rs.getString("username"));
+                obj.put("password", rs.getString("password"));
+                obj.put("name", rs.getString("name"));
+                obj.put("department", rs.getString("dep_name"));
+                obj.put("reception_role", rs.getString("rec_role"));
+                obj.put("admin_role", rs.getString("adm_role"));
+                arr.put(obj);
+            }
+            results.put("credentials", arr);
             // Close the connections to avoid memory leaks
             stmt.close();
             con.close();

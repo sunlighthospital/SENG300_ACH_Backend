@@ -24,6 +24,8 @@ public class TestScript {
     public String test(){
         JSONObject test_json = new JSONObject();
         try {
+            // View all credentials in the system
+            test_json.put("ALL", cred_man.getAllCredentials());
             // Doctors
             test_json.put("getAppointments", app_man.getDocAppointmentsByDocID(4));
             test_json.put("getAllDoctors", doc_man.getAllDoctors());
