@@ -52,6 +52,7 @@ public class LoginAPI {
             } else {
                 result.put("loginValid", true);
                 result.put("role", "Doctor");
+                result.put("id", user_details.get("id"));
                 return result.toString();
             }
         }
